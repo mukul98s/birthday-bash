@@ -1,5 +1,6 @@
 # node modules
-node_modules/
+/BirthdayBash-Backend/node_modules
+/frontend/node_modules
 
 
 # vscode workspace
