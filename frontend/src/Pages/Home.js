@@ -5,8 +5,20 @@ import instagram from "../assets/instagram.svg";
 import facebook from "../assets/facebook.svg";
 import google from "../assets/google.svg";
 import twitter from "../assets/twitter.svg";
+import axios from "axios";
 
 const Home = () => {
+  const testUser = {
+    email: "mukul@gmail.com",
+    username: "mukul",
+    password: "123",
+    dob: new Date().getUTCDate(),
+    bio: "rockstar",
+  };
+  axios
+    .post("http://localhost:4000/api/v1/signup/", testUser)
+    .then((response) => console.log(response));
+
   return (
     <Wrapper>
       <header>
