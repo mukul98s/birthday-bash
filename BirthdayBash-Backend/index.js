@@ -1,5 +1,6 @@
 const express = require("express");
 const createError = require("http-errors");
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -7,6 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 const login = require("./Routes/Auth_Routes/login");
 const signup = require("./Routes/Auth_Routes/signup");
