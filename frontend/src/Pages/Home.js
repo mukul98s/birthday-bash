@@ -8,16 +8,12 @@ import twitter from "../assets/twitter.svg";
 import axios from "axios";
 
 const Home = () => {
-  const testUser = {
-    email: "mukul@gmail.com",
-    username: "mukul",
-    password: "123",
-    dob: new Date().getUTCDate(),
-    bio: "rockstar",
-  };
   axios
-    .post("http://localhost:4000/api/v1/signup/", testUser)
-    .then((response) => console.log(response));
+    .post("http://localhost:4000/api/v1/login/", {
+      email: "mukul@gmail.com",
+      password: "123456789",
+    })
+    .then((res) => console.log(res.data));
 
   return (
     <Wrapper>
