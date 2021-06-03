@@ -1,5 +1,6 @@
 /* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
 
 /* Normalize */
 * {
@@ -9,15 +10,19 @@
 }
 
 :root {
-  --background-dark: #4f4f4f;
+  --background-dark: #141a21;
   --text-light: #ffffff;
   --border-light: 2px solid #ffffff;
   --text-shadow-dark: 0px 4px 4px rgba(0, 0, 0, 0.25);
   --letter-spacing-basic: 0.15em;
+  --letter-spacing-advance: 0.22em;
   --line-height-basic: 27px;
   --button-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
   --button-radius: 5px;
-  --button-background-dark: #6663ff;
+  --button-background-dark: #2a3340;
+  --base-transition: all 0.3s ease-out;
+  --dark-header: #080b0d;
+  --color-primary: #ffcf8c;
 }
 
 body {
@@ -28,8 +33,8 @@ body {
 
 /* Global styles */
 .container {
-  width: 90vw;
-  margin: auto 5vw;
+  width: 80vw;
+  margin: auto 10vw;
 }
 
 .underline {
@@ -46,15 +51,43 @@ body {
   border: none;
   outline: none;
   color: var(--text-light);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: lighter;
   text-transform: uppercase;
   padding: 1rem;
   border-radius: var(--button-radius);
   letter-spacing: var(--letter-spacing-basic);
   cursor: pointer;
+  font-weight: 500;
 }
 
-.button:hover {
-  background-color: #6c63ff;
+.link-button {
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  transition: var(--base-transition);
+}
+
+.button:hover,
+.link-button:hover {
+  transition: var(--base-transition);
+  background-color: #3e434b;
+}
+
+.small-button {
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 5px;
+  color: var(--text-light);
+  background-color: var(--button-background-dark);
+  border: none;
+  outline: none;
+  width: 60%;
+  margin: auto 20%;
+  border-radius: var(--button-radius);
+  text-shadow: var(--text-shadow-dark);
+  letter-spacing: var(--letter-spacing-basic);
+  box-shadow: var(--button-shadow);
 }
