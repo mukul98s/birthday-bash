@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <Wrapper>
       <header>
-        <div className="container">
+        <div>
           <h1>Birthday Bash</h1>
         </div>
       </header>
