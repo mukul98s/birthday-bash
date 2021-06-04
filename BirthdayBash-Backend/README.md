@@ -1,95 +1,92 @@
 # Api Routes
 
-### Sign Up Route
+## Sign Up Route
 
-`http://localhost:4000/api/v1/signup/`
+> **`http://localhost:4000/api/v1/signup/`**
 
-Data To Pass Into Request
+**Data To Pass Into Request
+Ex:-**
 
-Ex :-
+    {
+     "username":"test" ,
+     "email":"test@test.com",
+     "password":"123456789",
+     "dob":"2021-05-20",
+     "bio":"this is bio"
+    }
 
-{
+## Login Route
 
-"username":"test" ,
+> **`http://localhost:4000/api/v1/login/`**
 
-"email":"test@test.com",
+**Data To Pass Into Request
+Ex :-**
 
-"password":"123456789",
-
-"dob":"2021-05-20",
-
-"bio":"this is bio"
-
-}
-
-### Login Route
-
-`http://localhost:4000/api/v1/login/`
-
-Data To Pass Into Request
-
-Ex :-
+```
 
 {
-
-"email": "test@test.com",
-
-"password": "123456789"
-
+ "email": "test@test.com",
+ "password": "123456789"
 }
 
--> Returns a accesstoken
+```
 
-### User Profile Route (Proctected Route ,Only accessed by use of accesstoken )
+>
 
-`http://localhost:4000/api/v1/userProfile/showUserProfile/`
+- **Returns a accesstoken**
 
-->Use a Authorization header and put value in it like this: Bearer acccesstoken
+## User Profile Route (Proctected Route ,Only accessed by use of accesstoken )
 
-->It returns the particular user data whose accesstoken is given in the header
+> **`http://localhost:4000/api/v1/userProfile/showUserProfile/`**
 
-### User Search Route (Proctected Route ,Only accessed by use of accesstoken )
+- **Use a Authorization header and put value in it like this: Bearer
+  acccesstoken**
+- **It returns the particular user data whose accesstoken is given in the
+  header**
 
-`http://localhost:4000/api/v1/userProfile/searchUser/`
+## User Search Route (Proctected Route ,Only accessed by use of accesstoken )
 
-Data To Pass Into Request
+> **`http://localhost:4000/api/v1/userProfile/searchUser/`**
 
-Ex :-
+**Data To Pass Into Request
+Ex :-**
+
+```
 
 {
-
-"searchterm":"test"
-
+ "searchterm":"test"
 }
 
-->It returns the 10 results at a time from the search
+```
 
-Like This Data
+- **It returns the 10 results at a time from the search**
+
+### **Like This Data**
+
+```
 
 {
-
-"username": "test",
-
-"user_id": "a729a41b-f439-48d5-925e-67ba6fc7fe20",
-
-"id": 2
-
+ "username": "test",
+ "user_id": "a729a41b-f439-48d5-925e-67ba6fc7fe20",
+ "id": 2
 }
 
-->For the first time it will the first matched 10 results
+```
 
-->For the next 10 results , Pagination is used
+- For the first time it will the first matched 10 results
 
-->Store the last user `id` from the first 10 results to get next 10 results after that `id`
+- For the next 10 results , Pagination is used
 
-Data To Pass Into Request For Pagination
+- Store the last user **id** from the first 10 results to get next 10 results after that **id**
 
-Ex :-
+**Data To Pass Into Request For Pagination
+Ex :-**
+
+```
 
 {
-
-"searchterm":"test",
-
-"last_seen_id":2
-
+ "searchterm":"test",
+ "last_seen_id":2
 }
+
+```
