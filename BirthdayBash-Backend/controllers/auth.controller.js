@@ -9,12 +9,13 @@ module.exports = {
     try {
       const result = await userSignUpSchema.validateAsync(req.body);
       const { email, username, password, dob, bio } = result;
-
+      const lowerCaseEmail = email.toLowerCase().trim();
+      const lowerCaseUsername = username.toLowerCase().trim();
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const newUser = await db.query(
         "INSERT INTO users(email, username, password, dob, bio) VALUES($1, $2, $3, $4, $5) RETURNING *",
-        [email, username, hashedPassword, dob, bio]
+        [lowerCaseEmail, lowerCaseUsername, hashedPassword, dob, bio]
       );
 
       res.status(200).json({ message: "User Successfully Created" });
@@ -36,10 +37,10 @@ module.exports = {
     try {
       const result = await userLoginSchema.validateAsync(req.body);
       const { email, password } = result;
-
+      const lowerCaseEmail = email.toLowerCase();
       const userCheck = await db.query(
         "SELECT user_id,password FROM users WHERE email =$1",
-        [email]
+        [lowerCaseEmail]
       );
 
       if (userCheck.rowCount == 0) {
@@ -58,8 +59,9 @@ module.exports = {
 
       res.send({ accessToken });
     } catch (err) {
-      if (err.isJoi === true)
+      if (err.isJoi === true) {
         return next(createError.BadRequest("Invalid Username & Password"));
+      }
       next(err);
     }
   },

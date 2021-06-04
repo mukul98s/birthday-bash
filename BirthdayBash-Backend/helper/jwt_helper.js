@@ -18,6 +18,7 @@ module.exports = {
       });
     });
   },
+  // middleware
   verifyAccessToken: async (req, res, next) => {
     const authorizationHeaader = req.headers.authorization;
 

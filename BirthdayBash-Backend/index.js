@@ -13,6 +13,7 @@ app.use(cors());
 const login = require("./Routes/Auth_Routes/login");
 const signup = require("./Routes/Auth_Routes/signup");
 const userProfile = require("./Routes/Uesr_Routes/user_profile");
+const { verifyAccessToken } = require("./helper/jwt_helper");
 
 app.get("/auth", (req, res) => {
   res.send("Auth route");
@@ -22,7 +23,7 @@ app.use("/api/v1/login", login);
 
 app.use("/api/v1/signup", signup);
 
-app.use("/api/v1/userProfile", userProfile);
+app.use("/api/v1/userProfile", verifyAccessToken, userProfile);
 
 app.use(async (req, res, next) => {
   const Error = createError.NotFound();

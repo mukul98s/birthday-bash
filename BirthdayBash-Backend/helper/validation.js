@@ -5,8 +5,8 @@ const userSignUpSchema = Joi.object()
     email: Joi.string().email().min(5).max(50).required(),
     username: Joi.string()
       .min(2)
-      .regex(/^[A-Za-z]+$/)
-      .rule({ message: "username should only contain alphabet" })
+      .regex(/^[A-Za-z_ ]+$/)
+      .rule({ message: "Username Can Only Contain Alphabets" })
       .max(50)
       .required(),
     password: Joi.string().min(8).required(),
