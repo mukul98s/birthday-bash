@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { Header, Social } from "../Components/";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Header, Social } from "../Components/";
+
 import TextField from "@material-ui/core/TextField";
 import cancel from "../assets/cancel.svg";
+import { LoginContext } from "../State/LoginState";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const emailRegex = /\w+@[A-Za-z]{2,8}\.[A-Za-z]{2,5}(\.[A-za-z]{2})*/i;
+
+  const { authethicateLogin, isAuthenthicated, loginError } =
+    useContext(LoginContext);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const testUser = {
+      email: "hello@f.com",
+      password: "123456789",
+    };
+
+    if (emailRegex.test(email) && password) {
+      authethicateLogin({ email, password });
+      console.log(loginError, isAuthenthicated);
+    }
+  };
+
   return (
     <Wrapper>
       <Header />
@@ -19,9 +43,12 @@ const Login = () => {
           <TextField
             label="Email"
             variant="standard"
+            type="email"
             color="primary"
             fullWidth
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             label="Password"
@@ -30,9 +57,13 @@ const Login = () => {
             color="primary"
             fullWidth
             required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button className="button">Login</button>
+          <button className="button" onClick={handleLogin}>
+            Login
+          </button>
           <button className="small-button">Forget Password</button>
         </form>
         <article>
