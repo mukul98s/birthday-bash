@@ -51,8 +51,8 @@ const Wrapper = styled.div`
     justify-content: flex-end;
 
     a {
-      width: 2.25rem;
-      margin: 2rem;
+      width: 1.5rem;
+      margin: 1.5rem;
 
       img {
         width: 100%;
