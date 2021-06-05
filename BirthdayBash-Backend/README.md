@@ -1,6 +1,6 @@
 # Api Routes
 
-## Sign Up Route
+## Sign Up Route(POST Request)
 
 > **`http://localhost:4000/api/v1/signup/`**
 
@@ -15,7 +15,7 @@ Ex:-**
      "bio":"this is bio"
     }
 
-## Login Route
+## Login Route(POST Request)
 
 > **`http://localhost:4000/api/v1/login/`**
 
@@ -35,7 +35,7 @@ Ex :-**
 
 - **Returns a accesstoken**
 
-## User Profile Route (Proctected Route ,Only accessed by use of accesstoken )
+## User Profile Route(GET Request) (Proctected Route ,Only accessed by use of accesstoken )
 
 > **`http://localhost:4000/api/v1/userProfile/showUserProfile/`**
 
@@ -44,7 +44,7 @@ Ex :-**
 - **It returns the particular user data whose accesstoken is given in the
   header**
 
-## User Search Route (Proctected Route ,Only accessed by use of accesstoken )
+## User Search Route(GET Request) (Proctected Route ,Only accessed by use of accesstoken )
 
 > **`http://localhost:4000/api/v1/userProfile/searchUser/`**
 
@@ -87,6 +87,36 @@ Ex :-**
 {
  "searchterm":"test",
  "last_seen_id":2
+}
+
+```
+
+## User Edit Profile Route(PUT Request) (Proctected Route ,Only accessed by use of accesstoken )
+
+> **`http://localhost:4000/api/v1/userProfile/editProfile/`**
+
+**Data To Pass Into Request
+Ex :-**
+
+```
+
+{
+ "newUsername":"test",
+ "newPassword":"testpasswrd",
+ "newBio":"test bio",
+ "newDob":"2021-05-20"
+}
+
+```
+
+- **User have the ability to change one property at a time , So it is not important to send all the properties in one request**
+
+### **Like This Data**
+
+```
+
+{
+ "newUsername": "test new username",
 }
 
 ```

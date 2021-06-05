@@ -13,7 +13,7 @@ module.exports = {
       const lowerCaseUsername = username.toLowerCase().trim();
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      const newUser = await db.query(
+      await db.query(
         "INSERT INTO users(email, username, password, dob, bio) VALUES($1, $2, $3, $4, $5) RETURNING *",
         [lowerCaseEmail, lowerCaseUsername, hashedPassword, dob, bio]
       );
@@ -38,6 +38,7 @@ module.exports = {
       const result = await userLoginSchema.validateAsync(req.body);
       const { email, password } = result;
       const lowerCaseEmail = email.toLowerCase();
+
       const userCheck = await db.query(
         "SELECT user_id,password FROM users WHERE email =$1",
         [lowerCaseEmail]

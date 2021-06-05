@@ -22,7 +22,22 @@ const userLoginSchema = Joi.object()
   })
   .options({ abortEarly: false });
 
+const userEditSchema = Joi.object()
+  .keys({
+    newUsername: Joi.string()
+      .min(2)
+      .regex(/^[A-Za-z_ ]+$/)
+      .rule({ message: "Username Can Only Contain Alphabets" })
+      .max(50)
+      .optional(),
+    newPassword: Joi.string().min(8).optional(),
+    newDob: Joi.date().optional(),
+    newBio: Joi.string().max(100).optional(),
+  })
+  .options({ abortEarly: false });
+
 module.exports = {
   userLoginSchema,
   userSignUpSchema,
+  userEditSchema,
 };
