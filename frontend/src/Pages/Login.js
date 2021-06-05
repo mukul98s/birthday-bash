@@ -11,7 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const emailRegex = /\w+@[A-Za-z]{2,8}\.[A-Za-z]{2,5}(\.[A-za-z]{2})*/i;
+  const emailRegex = /\w+@[A-Za-z]{1,8}\.[A-Za-z]{2,5}(\.[A-za-z]{2})*/i;
 
   const { authethicateLogin, isAuthenthicated, loginError } =
     useContext(LoginContext);
