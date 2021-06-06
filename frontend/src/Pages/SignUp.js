@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Header } from "../Components";
 import { Link } from "react-router-dom";
 import cancel from "../assets/cancel.svg";
@@ -11,6 +11,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { SignUpContext } from "../State/SignupState";
+import { format } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -26,6 +28,48 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
   const classes = useStyles();
   const [selectedDate, handleDateChange] = useState(new Date());
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [bio, setBio] = useState("");
+  const [gender, setGender] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const { createUser } = useContext(SignUpContext);
+
+  const emailRegex = /\w+@[A-Za-z]{1,8}\.[A-Za-z]{2,5}(\.[A-za-z]{2})*/i;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const filledProperly =
+      emailRegex.test(email) &&
+      name &&
+      password &&
+      confirmPassword &&
+      gender !== null &&
+      selectedDate !== null;
+
+    console.log(filledProperly);
+
+    if (filledProperly) {
+      if (password === confirmPassword) {
+        createUser({
+          username: name,
+          email,
+          bio,
+          password,
+          dob: format(selectedDate, "yyyy-MM-dd").toString(),
+        });
+      } else {
+        //popup modal window
+        console.log("both passwords should match");
+      }
+    } else {
+      //popup modal window
+      console.log("please fill all required fields properly");
+    }
+  };
   return (
     <Wrapper>
       <Header />
@@ -43,6 +87,8 @@ const SignUp = () => {
             color="primary"
             fullWidth
             required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <TextField
             label="Email"
@@ -50,8 +96,17 @@ const SignUp = () => {
             color="primary"
             fullWidth
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <TextField label="Bio" variant="standard" color="primary" fullWidth />
+          <TextField
+            label="Bio"
+            variant="standard"
+            color="primary"
+            fullWidth
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
 
           <FormControl className={classes.formControl} fullWidth>
             <InputLabel id="demo-simple-select-label">Gender</InputLabel>
@@ -59,6 +114,8 @@ const SignUp = () => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               required
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
             >
               <MenuItem value="male">Male</MenuItem>
               <MenuItem value="female">Female</MenuItem>
@@ -86,6 +143,8 @@ const SignUp = () => {
             variant="standard"
             color="primary"
             fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
           <TextField
@@ -95,9 +154,13 @@ const SignUp = () => {
             color="primary"
             fullWidth
             required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
-          <button className="button">Register</button>
+          <button className="button" onClick={handleSubmit}>
+            Register
+          </button>
         </form>
       </div>
     </Wrapper>
@@ -111,8 +174,8 @@ const Wrapper = styled.div`
     justify-content: flex-end;
 
     a {
-      width: 2.25rem;
-      margin: 2rem;
+      width: 1.5rem;
+      margin: 1.5rem;
 
       img {
         width: 100%;
