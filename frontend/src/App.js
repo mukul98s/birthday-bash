@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Home, Login, SignUp, UserHome } from "./Pages/";
 import { LoginProvider } from "./State/LoginState";
 import PrivateRouteLogin from "./Pages/PrivateRouteLogin";
+import { SignUpProvider } from "./State/SignupState";
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
           </LoginProvider>
         </Route>
         <Route path="/signup">
-          <SignUp />
+          <SignUpProvider>
+            <SignUp />
+          </SignUpProvider>
         </Route>
         <PrivateRouteLogin>
           <UserHome />
