@@ -15,6 +15,7 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL,
     password VARCHAR NOT NULL,
     dob DATE NOT NULL,
+    gender VARCHAR(10) NOT NULL,
     bio VARCHAR(100) ,
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     followers_count BIGINT DEFAULT 0,

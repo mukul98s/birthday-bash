@@ -1,10 +1,10 @@
 const Route = require("express").Router();
 
+const { editProfile } = require("../../controllers/edit_profile.controller");
 const {
   showUserProfile,
-  searchUser,
-  editProfile,
-} = require("../../controllers/user.controller");
+} = require("../../controllers/show_user_profile.controller");
+const { searchUser } = require("../../controllers/search_user.controller");
 
 Route.get("/showUserProfile", showUserProfile);
 
