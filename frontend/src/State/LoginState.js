@@ -15,16 +15,23 @@ export const LoginProvider = ({ children }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw Error("Something Went Wrong");
+          console.log("Error");
         }
         return res.json();
       })
       .then((data) => {
-        setIsAuthethicated(true);
-        setUserAccessKey(data.accessToken);
-        setLoginError(null);
+        if (!data?.error) {
+          setIsAuthethicated(true);
+          setUserAccessKey(data.accessToken);
+          setLoginError(null);
+        } else {
+          console.log(data.error.message);
+          setIsAuthethicated(false);
+          setLoginError(data?.error?.message);
+        }
       })
       .catch((err) => {
+        setIsAuthethicated(false);
         setLoginError(err.message);
       });
   };

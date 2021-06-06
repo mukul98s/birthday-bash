@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Header, Social } from "../Components/";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -19,27 +19,24 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const testUser = {
-      email: "hello@f.com",
-      password: "123456789",
-    };
-
     if (emailRegex.test(email) && password) {
       authethicateLogin({ email, password });
-      console.log(loginError, isAuthenthicated);
     }
+
+    console.log(isAuthenthicated);
   };
 
   return (
     <Wrapper>
       <Header />
+      {isAuthenthicated && <h2>I am Kancha</h2>}
       <div className="container">
         <div className="cross">
           <Link to="/">
             <img src={cancel} alt="" />
           </Link>
         </div>
-        <form>
+        <form onSubmit={handleLogin}>
           <TextField
             label="Email"
             variant="standard"
@@ -61,9 +58,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button className="button" onClick={handleLogin}>
-            Login
-          </button>
+          <button className="button">Login</button>
           <button className="small-button">Forget Password</button>
         </form>
         <article>
