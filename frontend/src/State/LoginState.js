@@ -1,46 +1,37 @@
-import React, { useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { GlobalContext } from "./GlobalState";
 
-export const LoginContext = React.createContext();
+export const LoginAuth = createContext();
 
-export const LoginProvider = ({ children }) => {
-  const [userAccessKey, setUserAccessKey] = useState(null);
-  const [isAuthenthicated, setIsAuthethicated] = useState(null);
-  const [loginError, setLoginError] = useState(null);
+export const ProvideAuth = ({ children }) => {
+  const auth = useProvideAuth();
+  return <LoginAuth.Provider value={auth}>{children}</LoginAuth.Provider>;
+};
 
-  const authethicateLogin = (body) => {
-    fetch("http://localhost:4000/api/v1/login/", {
+export const useAuth = () => {
+  return useContext(LoginAuth);
+};
+
+const useProvideAuth = () => {
+  const [user, setUser] = useState(null);
+  const { setIsLogin } = useContext(GlobalContext);
+
+  const login = async (userDetails) => {
+    const response = await fetch("http://localhost:4000/api/v1/login/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          console.log("Error");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (!data?.error) {
-          setIsAuthethicated(true);
-          setUserAccessKey(data.accessToken);
-          setLoginError(null);
-        } else {
-          console.log(data.error.message);
-          setIsAuthethicated(false);
-          setLoginError(data?.error?.message);
-        }
-      })
-      .catch((err) => {
-        setIsAuthethicated(false);
-        setLoginError(err.message);
-      });
+      body: JSON.stringify(userDetails),
+    }).catch((err) => console.log(err.message));
+
+    const data = await response.json();
+
+    if (data?.error) {
+      setUser(false);
+    } else {
+      setUser(data);
+      setIsLogin(true);
+    }
   };
 
-  return (
-    <LoginContext.Provider
-      value={{ userAccessKey, authethicateLogin, isAuthenthicated, loginError }}
-    >
-      {children}
-    </LoginContext.Provider>
-  );
+  return { user, login };
 };
