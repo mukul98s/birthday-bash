@@ -7,7 +7,7 @@ module.exports = {
       const { user_id } = req.payload;
 
       const currentUser = await db.query(
-        "SELECT username,email,dob,bio FROM users WHERE user_id = $1",
+        "SELECT username,email,gender,dob,bio FROM users WHERE user_id = $1",
         [user_id]
       );
 

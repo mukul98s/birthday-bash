@@ -9,11 +9,10 @@ module.exports = {
     try {
       const result = await userLoginSchema.validateAsync(req.body);
       const { email, password } = result;
-      const lowerCaseEmail = email.toLowerCase();
 
       const userCheck = await db.query(
         "SELECT user_id,password FROM users WHERE email =$1",
-        [lowerCaseEmail]
+        [email]
       );
 
       if (userCheck.rowCount == 0) {

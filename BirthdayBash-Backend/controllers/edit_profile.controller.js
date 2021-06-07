@@ -14,10 +14,9 @@ module.exports = {
       const updatedResult = {};
 
       if (newUsername) {
-        const Username = newUsername.toLowerCase().trim();
         const Result = await db.query(
           "UPDATE users SET username=$1 WHERE user_id = $2 RETURNING username",
-          [Username, user_id]
+          [newUsername, user_id]
         );
         updatedResult.username = Result.rows[0].username;
       }

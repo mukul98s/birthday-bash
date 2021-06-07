@@ -7,14 +7,12 @@ module.exports = {
   signup: async (req, res, next) => {
     try {
       const result = await userSignUpSchema.validateAsync(req.body);
-      const { email, username, password, dob, bio } = result;
-      const lowerCaseEmail = email.toLowerCase().trim();
-      const lowerCaseUsername = username.toLowerCase().trim();
+      const { email, username, password, gender, dob, bio } = result;
       const hashedPassword = await bcrypt.hash(password, 10);
 
       await db.query(
-        "INSERT INTO users(email, username, password, dob, bio) VALUES($1, $2, $3, $4, $5) RETURNING *",
-        [lowerCaseEmail, lowerCaseUsername, hashedPassword, dob, bio]
+        "INSERT INTO users(email, username, password, gender, dob, bio) VALUES($1, $2, $3, $4, $5, $6)",
+        [email, username, hashedPassword, gender, dob, bio]
       );
 
       res.status(200).json({ message: "User Successfully Created" });
