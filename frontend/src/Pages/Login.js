@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import TextField from "@material-ui/core/TextField";
 import cancel from "../assets/cancel.svg";
-import { LoginContext } from "../State/LoginState";
+import { useAuth } from "../State/LoginState";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,30 +13,36 @@ const Login = () => {
 
   const emailRegex = /\w+@[A-Za-z]{1,8}\.[A-Za-z]{2,5}(\.[A-za-z]{2})*/i;
 
-  const { authethicateLogin, isAuthenthicated, loginError } =
-    useContext(LoginContext);
+  const auth = useAuth();
 
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (emailRegex.test(email) && password) {
-      authethicateLogin({ email, password });
+    if (email && password) {
+      if (emailRegex.test(email)) {
+        auth.login({ email, password });
+      } else {
+        // popup window
+        console.log("write a valid email addrress");
+      }
+    } else {
+      // pop up window
+      console.log("Both email and password are required");
     }
 
-    console.log(isAuthenthicated);
+    console.log(auth.user);
   };
 
   return (
     <Wrapper>
       <Header />
-      {isAuthenthicated && <h2>I am Kancha</h2>}
       <div className="container">
         <div className="cross">
           <Link to="/">
             <img src={cancel} alt="" />
           </Link>
         </div>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit}>
           <TextField
             label="Email"
             variant="standard"
