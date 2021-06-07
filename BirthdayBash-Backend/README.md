@@ -4,6 +4,8 @@
 
 > **`http://localhost:4000/api/v1/signup/`**
 
+- **Gender Should Only Contain male/female/hidden**
+
 **Data To Pass Into Request
 Ex:-**
 
@@ -12,6 +14,7 @@ Ex:-**
      "email":"test@test.com",
      "password":"123456789",
      "dob":"2021-05-20",
+     "gender":"male",
      "bio":"this is bio"
     }
 
