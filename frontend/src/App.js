@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Home, Login, SignUp, UserHome } from "./Pages/";
-import { LoginProvider } from "./State/LoginState";
+import { ProvideAuth } from "./State/LoginState";
 import PrivateRouteLogin from "./Pages/PrivateRouteLogin";
 
 function App() {
@@ -12,14 +12,14 @@ function App() {
           <Home />
         </Route>
         <Route path="/login">
-          <LoginProvider>
+          <ProvideAuth>
             <Login />
-          </LoginProvider>
+          </ProvideAuth>
         </Route>
         <Route path="/signup">
           <SignUp />
         </Route>
-        <PrivateRouteLogin>
+        <PrivateRouteLogin path="/username">
           <UserHome />
         </PrivateRouteLogin>
       </Switch>
