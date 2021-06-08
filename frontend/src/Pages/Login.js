@@ -91,6 +91,10 @@ const Wrapper = styled.div`
     a {
       width: 1.5rem;
       margin: 1.5rem;
+      @media screen and (min-width: 768px) {
+        width: 2.25rem;
+        margin: 3rem 0;
+      }
 
       img {
         width: 100%;
@@ -105,11 +109,23 @@ const Wrapper = styled.div`
       margin: 2rem auto;
       label {
         color: var(--text-light);
+        @media screen and (min-width: 768px) {
+          font-size: 1.2rem;
+        }
       }
       input {
         color: var(--text-light);
         font-size: 1.2rem;
         font-weight: light;
+        @media screen and (min-width: 768px) {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      .button {
+        margin-top: 4rem;
       }
     }
   }
@@ -117,10 +133,12 @@ const Wrapper = styled.div`
   .forget-link {
     display: block;
     text-align: center;
-    width: 100%;
     color: #03a9f4;
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing-basic);
+    @media screen and (min-width: 768px) {
+      margin: 4rem auto;
+    }
   }
 
   article {
@@ -138,6 +156,10 @@ const Wrapper = styled.div`
       font-weight: 700;
       font-size: 1.2rem;
       text-transform: uppercase;
+      @media screen and (min-width: 768px) {
+        font-size: 1.5rem;
+        top: -18px;
+      }
     }
   }
 `;

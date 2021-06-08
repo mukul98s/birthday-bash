@@ -44,6 +44,11 @@ const Wrapper = styled.div`
     margin: 5rem 15%;
     width: 70%;
 
+    @media screen and (min-width: 768px) {
+      margin: 7rem 10%;
+      width: 80%;
+    }
+
     img {
       width: 100%;
     }
@@ -64,6 +69,21 @@ const Wrapper = styled.div`
       font-weight: 700;
       font-size: 1.2rem;
       text-transform: uppercase;
+      @media screen and (min-width: 768px) {
+        font-size: 1.5rem;
+        top: -18px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .container div:nth-child(2) {
+      display: flex;
+      justify-content: space-evenly;
+
+      a {
+        flex: 1;
+      }
     }
   }
 `;

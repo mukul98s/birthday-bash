@@ -177,6 +177,10 @@ const Wrapper = styled.div`
     a {
       width: 1.5rem;
       margin: 1.5rem;
+      @media screen and (min-width: 768px) {
+        width: 2.25rem;
+        margin: 3rem 0;
+      }
 
       img {
         width: 100%;
@@ -191,11 +195,17 @@ const Wrapper = styled.div`
       margin: 2rem auto;
       label {
         color: var(--text-light);
+        @media screen and (min-width: 768px) {
+          font-size: 1.2rem;
+        }
       }
       input {
         color: var(--text-light);
         font-size: 1.2rem;
         font-weight: light;
+        @media screen and (min-width: 768px) {
+          font-size: 1.5rem;
+        }
       }
     }
 
@@ -220,10 +230,21 @@ const Wrapper = styled.div`
       color: white;
       font-size: 1.1rem;
       border-bottom: 2px solid white;
+      @media screen and (min-width: 768px) {
+        font-size: 1.5rem;
+      }
     }
     .MuiSelect-icon,
     #demo-simple-select-label {
       color: white;
+      font-size: 1.2rem;
+    }
+
+    @media screen and (min-width: 768px) {
+      .button {
+        width: 70%;
+        margin: 3rem 15%;
+      }
     }
   }
 `;

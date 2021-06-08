@@ -27,6 +27,10 @@ const Wrapper = styled.div`
       text-shadow: var(--text-shadow-dark);
       color: var(--color-primary);
       font-family: "Shadows Into Light", cursive;
+
+      @media screen and (min-width: 768px) {
+        font-size: 3rem;
+      }
     }
   }
 `;

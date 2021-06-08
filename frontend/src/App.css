@@ -91,3 +91,15 @@ body {
   letter-spacing: var(--letter-spacing-basic);
   box-shadow: var(--button-shadow);
 }
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 70vw;
+    margin: auto 15vw;
+  }
+
+  .button {
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}

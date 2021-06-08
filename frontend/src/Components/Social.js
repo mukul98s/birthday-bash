@@ -27,6 +27,7 @@ const Social = () => {
 };
 
 const Wrapper = styled.div`
+  margin: 3rem auto;
   .button-group {
     padding: 0 1rem;
     display: flex;
