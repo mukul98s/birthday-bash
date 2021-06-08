@@ -71,8 +71,8 @@ const Login = () => {
           />
 
           <button className="button">Login</button>
-          <button className="small-button">Forget Password</button>
         </form>
+        <Link className="forget-link">Forget Password</Link>
         <article>
           <h4>Or Login</h4>
         </article>
@@ -112,6 +112,15 @@ const Wrapper = styled.div`
         font-weight: light;
       }
     }
+  }
+
+  .forget-link {
+    display: block;
+    text-align: center;
+    width: 100%;
+    color: #03a9f4;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-basic);
   }
 
   article {
