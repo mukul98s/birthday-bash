@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Header, Social } from "../Components/";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import TextField from "@material-ui/core/TextField";
@@ -10,10 +10,18 @@ import { useAuth } from "../State/LoginState";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const emailRegex = /\w+@[A-Za-z]{1,8}\.[A-Za-z]{2,5}(\.[A-za-z]{2})*/i;
 
   const auth = useAuth();
+
+  //this will redirect from here after successful login
+  useEffect(() => {
+    if (auth.user) {
+      history.push("/username");
+    }
+  }, [auth.user, history]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,8 +37,6 @@ const Login = () => {
       // pop up window
       console.log("Both email and password are required");
     }
-
-    console.log(auth.user);
   };
 
   return (
