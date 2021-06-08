@@ -121,7 +121,7 @@ const SignUp = () => {
               <MenuItem value="male">Male</MenuItem>
               <MenuItem value="female">Female</MenuItem>
               <MenuItem value="other">Other</MenuItem>
-              <MenuItem value="private">Prefer Not to Tell</MenuItem>
+              <MenuItem value="hidden">Prefer Not to Tell</MenuItem>
             </Select>
           </FormControl>
 
