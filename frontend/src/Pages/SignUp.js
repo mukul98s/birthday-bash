@@ -60,6 +60,7 @@ const SignUp = () => {
           bio,
           password,
           dob: format(selectedDate, "yyyy-MM-dd").toString(),
+          gender,
         });
       } else {
         //popup modal window
