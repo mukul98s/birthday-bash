@@ -16,7 +16,7 @@ const userSignUpSchema = Joi.object()
       .max(10)
       .trim()
       .lowercase()
-      .valid("male", "female", "hidden")
+      .valid("male", "female", "hidden", "other")
       .required(),
     dob: Joi.string().trim().required(),
     bio: Joi.string().max(100).optional(),
