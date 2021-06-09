@@ -20,6 +20,7 @@
   --button-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
   --button-radius: 5px;
   --button-background-dark: #2a3340;
+  --button-background-light: #fd4d4d;
   --base-transition: all 0.3s ease-out;
   --dark-header: #080b0d;
   --color-primary: #ffcf8c;
