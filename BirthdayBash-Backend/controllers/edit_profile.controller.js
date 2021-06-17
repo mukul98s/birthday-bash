@@ -11,41 +11,47 @@ module.exports = {
       const { newUsername, newBio, newDob, newPassword } = result;
 
       const { user_id } = req.payload;
-      const updatedResult = {};
+      const paramToUpdate = [];
+      const argsArr = [];
+      const funcReturnArr = [];
 
       if (newUsername) {
-        const Result = await db.query(
-          "UPDATE users SET username=$1 WHERE user_id = $2 RETURNING username",
-          [newUsername, user_id]
-        );
-        updatedResult.username = Result.rows[0].username;
+        paramToUpdate.push("username");
+        argsArr.push(newUsername);
+        funcReturnArr.push("username");
       }
 
       if (newPassword) {
+        paramToUpdate.push("password");
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await db.query("UPDATE users SET password=$1 WHERE user_id = $2", [
-          hashedPassword,
-          user_id,
-        ]);
+        argsArr.push(hashedPassword);
       }
 
       if (newBio) {
-        const Result = await db.query(
-          "UPDATE users SET bio=$1 WHERE user_id = $2 RETURNING bio",
-          [newBio, user_id]
-        );
-        updatedResult.bio = Result.rows[0].bio;
+        paramToUpdate.push("bio");
+        argsArr.push(newBio);
+        funcReturnArr.push("bio");
       }
 
       if (newDob) {
-        const Result = await db.query(
-          "UPDATE users SET dob=$1 WHERE user_id = $2 RETURNING dob",
-          [newDob, user_id]
-        );
-        updatedResult.dob = Result.rows[0].dob;
+        paramToUpdate.push("dob");
+        argsArr.push(newDob);
+        funcReturnArr.push("dob");
       }
 
-      res.json(updatedResult);
+      argsArr.push(user_id);
+
+      const query = `UPDATE users SET (${paramToUpdate.join(
+        ", "
+      )}) = (${paramToUpdate
+        .map((_, i) => "$" + (i + 1))
+        .join(", ")}) WHERE user_id = $${
+        paramToUpdate.length + 1
+      } RETURNING ${funcReturnArr.join(", ")}`;
+
+      const queryResult = await db.query(query, argsArr);
+
+      res.json(queryResult.rows[0]);
     } catch (error) {
       if (error.isJoi == true) {
         const details = error.details;

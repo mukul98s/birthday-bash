@@ -4,7 +4,7 @@
 
 > **`http://localhost:4000/api/v1/signup/`**
 
-- **Gender Should Only Contain male/female/hidden**
+- **Gender Should Only Contain male/female/hidden/other**
 
 **Data To Pass Into Request
 Ex:-**
