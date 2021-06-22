@@ -5,7 +5,7 @@ module.exports = {
     return new Promise((reslove, reject) => {
       const payload = { user_id: user_id };
       const options = {
-        expiresIn: "6h",
+        expiresIn: "7d",
         issuer: "BirthdayBash",
       };
       const secret = process.env.ACCESS_TOKEN_SECRET;

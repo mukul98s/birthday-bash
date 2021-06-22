@@ -13,14 +13,17 @@ app.use(cors());
 const login = require("./Routes/Auth_Routes/login");
 const signup = require("./Routes/Auth_Routes/signup");
 const userProfile = require("./Routes/Uesr_Routes/user_profile");
-const forgotPassword = require("./Routes/Auth_Routes/Forgot_Password");
+const forgotPassword = require("./Routes/Auth_Routes/forgot_password");
+const resetPassword = require("./Routes/Auth_Routes/reset_password");
 const { verifyAccessToken } = require("./helper/jwt_helper");
 
 app.use("/api/v1/login", login);
 
 app.use("/api/v1/signup", signup);
 
-app.use("/api/v1/forgotPassword", forgotPassword);
+// app.use("/api/v1/forgotPassword", forgotPassword);
+
+// app.use("/api/v1/resetPassword", resetPassword);
 
 app.use("/api/v1/userProfile", verifyAccessToken, userProfile);
 

@@ -14,7 +14,7 @@ module.exports = {
       const paramToUpdate = [];
       const argsArr = [];
       const funcReturnArr = [];
-
+      argsArr.push(user_id);
       if (newUsername) {
         paramToUpdate.push("username");
         argsArr.push(newUsername);
@@ -39,17 +39,21 @@ module.exports = {
         funcReturnArr.push("dob");
       }
 
-      argsArr.push(user_id);
+      let mainQuery = `UPDATE users SET ${paramToUpdate.map(
+        (col, i) => `${col} = $${2 + i}`
+      )} WHERE user_id = $1`;
 
-      const query = `UPDATE users SET (${paramToUpdate.join(
-        ", "
-      )}) = (${paramToUpdate
-        .map((_, i) => "$" + (i + 1))
-        .join(", ")}) WHERE user_id = $${
-        paramToUpdate.length + 1
-      } RETURNING ${funcReturnArr.join(", ")}`;
+      let returnQuery = `RETURNING ${funcReturnArr.join(", ")} `;
 
-      const queryResult = await db.query(query, argsArr);
+      let finalQuery;
+
+      if (newUsername || newBio || newDob) {
+        finalQuery = mainQuery + " " + returnQuery;
+      } else {
+        finalQuery = mainQuery;
+      }
+
+      const queryResult = await db.query(finalQuery, argsArr);
 
       res.json(queryResult.rows[0]);
     } catch (error) {
