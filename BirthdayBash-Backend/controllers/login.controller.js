@@ -24,7 +24,7 @@ module.exports = {
       const isMatch = await bcrypt.compare(password, hashedPassword);
 
       if (!isMatch) {
-        throw createError.Unauthorized("Invalid Email/Password!");
+        throw createError.Unauthorized("Invalid Email & Password!");
       }
 
       const accessToken = await signAccessToken(user_id);
@@ -32,7 +32,7 @@ module.exports = {
       res.send({ accessToken });
     } catch (err) {
       if (err.isJoi === true) {
-        return next(createError.BadRequest("Invalid Username & Password"));
+        return next(createError.BadRequest("Invalid Email & Password"));
       }
       next(err);
     }

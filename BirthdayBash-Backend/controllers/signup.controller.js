@@ -10,10 +10,19 @@ module.exports = {
       const { email, username, password, gender, dob, bio } = result;
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      await db.query(
-        "INSERT INTO users(email, username, password, gender, dob, bio) VALUES($1, $2, $3, $4, $5, $6)",
-        [email, username, hashedPassword, gender, dob, bio]
+      const userCheck = await db.query(
+        "SELECT email FROM users WHERE email = $1",
+        [email]
       );
+
+      if (userCheck.rowCount == 0) {
+        await db.query(
+          "INSERT INTO users(email, username, password, gender, dob, bio) VALUES($1, $2, $3, $4, $5, $6)",
+          [email, username, hashedPassword, gender, dob, bio]
+        );
+      } else {
+        throw createError.Conflict("Email Already Registered !");
+      }
 
       res.status(200).json({ message: "User Successfully Created" });
     } catch (error) {
@@ -22,10 +31,6 @@ module.exports = {
         const errors = details.map((i) => i.message).join(",");
 
         return next(createError.NotAcceptable(errors));
-      }
-
-      if (error.severity === "ERROR" && error.code === "23505") {
-        return next(createError.Conflict("Email already exists!"));
       }
       next(error);
     }

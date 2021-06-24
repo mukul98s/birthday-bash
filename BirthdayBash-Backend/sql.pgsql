@@ -25,10 +25,10 @@ CREATE TABLE users (
     following_count BIGINT DEFAULT 0
 );
 
+-- For Seaching Feature
 Step 6.>
 CREATE INDEX CONCURRENTLY idx_id_user ON users(id); 
 
--- For Seaching Feature
 Step 7.>
 CREATE EXTENSION pg_trgm;
 

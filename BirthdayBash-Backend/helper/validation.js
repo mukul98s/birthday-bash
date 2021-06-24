@@ -46,8 +46,18 @@ const userEditSchema = Joi.object()
   })
   .options({ abortEarly: false });
 
+const forgotPasswordSchema = Joi.object().keys({
+  email: Joi.string().email().trim().lowercase().min(5).max(50).required(),
+});
+
+const resetPasswordSchema = Joi.object().keys({
+  password: Joi.string().min(8).required(),
+});
+
 module.exports = {
   userLoginSchema,
   userSignUpSchema,
   userEditSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
 };
