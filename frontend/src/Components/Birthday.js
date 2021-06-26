@@ -78,6 +78,7 @@ const Wrapper = styled.div`
         color: var(--text-light);
         text-shadow: var(--text-shadow-dark);
         box-shadow: var(--button-shadow);
+        cursor: pointer;
       }
     }
   }
