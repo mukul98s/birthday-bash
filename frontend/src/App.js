@@ -22,7 +22,7 @@ function App() {
             <SignUp />
           </SignUpProvider>
         </Route>
-        <PrivateRouteLogin path="/username">
+        <PrivateRouteLogin path="/home">
           <UserHome />
         </PrivateRouteLogin>
       </Switch>
