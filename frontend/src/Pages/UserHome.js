@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Birthday, Header } from "../Components";
+import { Birthday, Header, BottomNavbar } from "../Components";
 
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
-import { Link } from "react-router-dom";
-
-import newUser from "../assets/newUser.png";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -58,9 +55,8 @@ const UserHome = () => {
           <Birthday />
           <Birthday />
         </section>
-
-        <Link className="button link-button">Add New Birthday</Link>
       </div>
+      <BottomNavbar />
     </Wrapper>
   );
 };
