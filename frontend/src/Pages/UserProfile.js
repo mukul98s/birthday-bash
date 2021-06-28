@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
 import { Header, BottomNavbar } from "../Components";
+import { GlobalContext } from "../State/GlobalState";
 
 const UserProfile = () => {
+  const { setIsLogin } = useContext(GlobalContext);
   return (
     <React.Fragment>
       <Header />
@@ -39,6 +41,9 @@ const UserProfile = () => {
             <h1>Recently Wished</h1>
           </div>
         </div>
+        <button className="button" onClick={() => setIsLogin(false)}>
+          Logout
+        </button>
       </Wrapper>
       <BottomNavbar />
     </React.Fragment>
