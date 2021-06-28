@@ -4,14 +4,12 @@ import { GlobalContext } from "../State/GlobalState";
 
 const PrivateRouteLogin = ({ children, ...rest }) => {
   const { isLogin } = useContext(GlobalContext);
-  const local = localStorage.getItem("isLogin");
-  console.log(local);
 
   return (
     <Route
       {...rest}
       render={() => {
-        return local ? children : <Redirect to="/login" />;
+        return isLogin ? children : <Redirect to="/login" />;
       }}
     />
   );
