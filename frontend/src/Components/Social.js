@@ -5,10 +5,18 @@ import google from "../assets/google.svg";
 import twitter from "../assets/twitter.svg";
 import styled from "styled-components";
 
+import { motion } from "framer-motion";
+
+const iconVariant = {};
+
 const Social = () => {
   return (
     <Wrapper>
-      <div className="button-group">
+      <motion.div
+        initial={{ y: 100, scale: 10 }}
+        animate={{ y: 0, scale: 1 }}
+        className="button-group"
+      >
         <div>
           <img src={instagram} alt="" />
         </div>
@@ -21,7 +29,7 @@ const Social = () => {
         <div>
           <img src={facebook} alt="" />
         </div>
-      </div>
+      </motion.div>
     </Wrapper>
   );
 };

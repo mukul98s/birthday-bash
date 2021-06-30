@@ -13,6 +13,8 @@ import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { SignUpContext } from "../State/SignupState";
 import { format } from "date-fns";
+import { motion } from "framer-motion";
+import { pageAnimation } from "../animation";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -74,7 +76,13 @@ const SignUp = () => {
   return (
     <Wrapper>
       <Header />
-      <div className="container">
+      <motion.div
+        variants={pageAnimation}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="container"
+      >
         <div className="cross">
           <Link to="/">
             <img src={cancel} alt="" />
@@ -163,7 +171,7 @@ const SignUp = () => {
             Register
           </button>
         </form>
-      </div>
+      </motion.div>
     </Wrapper>
   );
 };

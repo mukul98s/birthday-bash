@@ -7,6 +7,8 @@ import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
+import { motion } from "framer-motion";
+import { pageAnimation } from "../animation";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -26,7 +28,13 @@ const UserHome = () => {
   return (
     <Wrapper>
       <Header />
-      <div className="container">
+      <motion.div
+        variants={pageAnimation}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="container"
+      >
         <article>
           <FormControl className={classes.formControl} fullWidth>
             <InputLabel id="demo-simple-select-label">Filter</InputLabel>
@@ -55,7 +63,7 @@ const UserHome = () => {
           <Birthday />
           <Birthday />
         </section>
-      </div>
+      </motion.div>
       <BottomNavbar />
     </Wrapper>
   );

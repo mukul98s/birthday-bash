@@ -1,11 +1,13 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import { Home } from "./Pages/";
 import { ProvideAuth } from "./State/LoginState";
 import PrivateRouteLogin from "./Pages/PrivateRouteLogin";
 import { SignUpProvider } from "./State/SignupState";
 import { lazy, Suspense } from "react";
 import Loader from "./Components/Loader";
+
+import { AnimatePresence } from "framer-motion";
 
 function App() {
   // Lazy Imports
@@ -15,10 +17,12 @@ function App() {
   const SignUp = lazy(() => import("./Pages/SignUp"));
   const Error = lazy(() => import("./Pages/Error"));
 
+  const location = useLocation();
+
   return (
-    <Router>
-      <Suspense fallback={<Loader />}>
-        <Switch>
+    <Suspense fallback={<Loader />}>
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.key}>
           <Route path="/" exact={true}>
             <Home />
           </Route>
@@ -42,8 +46,8 @@ function App() {
             <Error />
           </Route>
         </Switch>
-      </Suspense>
-    </Router>
+      </AnimatePresence>
+    </Suspense>
   );
 }
 
