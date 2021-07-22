@@ -1,8 +1,8 @@
 const createError = require("http-errors");
-const db = require("../db/index");
+const db = require("../../db/index");
 const JWT = require("jsonwebtoken");
-const { sendMail } = require("../helper/send_mail");
-const { forgotPasswordSchema } = require("../helper/validation");
+const { sendMail } = require("../../helper/send_mail");
+const { forgotPasswordSchema } = require("../../helper/validation");
 
 module.exports = {
   forgotPassword: async (req, res, next) => {

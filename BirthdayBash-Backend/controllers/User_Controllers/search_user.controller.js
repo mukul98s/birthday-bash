@@ -1,5 +1,5 @@
 const createError = require("http-errors");
-const db = require("../db/index");
+const db = require("../../db/index");
 
 module.exports = {
   searchUser: async (req, res, next) => {
@@ -17,7 +17,7 @@ module.exports = {
         if (moreResults.rowCount > 0) {
           res.json(moreResults.rows);
         } else {
-          return next(createError.NotFound("No More Match Found"));
+          throw createError.NotFound("No More Match Found");
         }
       } else {
         const searchResult = await db.query(
@@ -28,11 +28,11 @@ module.exports = {
         if (searchResult.rowCount > 0) {
           res.json(searchResult.rows);
         } else {
-          return next(createError.NotFound("No Match Found"));
+          throw createError.NotFound("No Match Found");
         }
       }
     } catch (error) {
-      return next(createError.InternalServerError(error.message));
+      return next(error);
     }
   },
 };

@@ -1,8 +1,8 @@
 const createError = require("http-errors");
 const bcrypt = require("bcrypt");
-const db = require("../db/index");
+const db = require("../../db/index");
 const JWT = require("jsonwebtoken");
-const { resetPasswordSchema } = require("../helper/validation");
+const { resetPasswordSchema } = require("../../helper/validation");
 
 module.exports = {
   resetPassword: async (req, res, next) => {
@@ -17,7 +17,7 @@ module.exports = {
       );
 
       if (userCheck.rowCount == 0) {
-        return createError.InternalServerError();
+        throw createError.InternalServerError();
       }
 
       const secret =

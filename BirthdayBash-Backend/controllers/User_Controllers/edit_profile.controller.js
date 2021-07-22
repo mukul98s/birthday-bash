@@ -1,7 +1,7 @@
 const createError = require("http-errors");
-const db = require("../db/index");
+const db = require("../../db/index");
 const bcrypt = require("bcrypt");
-const { userEditSchema } = require("../helper/validation");
+const { userEditSchema } = require("../../helper/validation");
 
 module.exports = {
   editProfile: async (req, res, next) => {
@@ -14,8 +14,30 @@ module.exports = {
       const paramToUpdate = [];
       const argsArr = [];
       const funcReturnArr = [];
+
+      // const usernameChangeCountCheck = async () => {
+      //   const res = await db.query(
+      //     "SELECT username_change_count FROM users where user_id = $1",
+      //     [user_id]
+      //   );
+      //   const count = res.rows[0].username_change_count;
+
+      //   if (count == 2) {
+      //     return createError.BadRequest(
+      //       "Username can only be changed two times a week"
+      //     );
+      //   } else {
+      //     const newCount = count + 1;
+      //     await db.query(
+      //       "UPDATE users SET username_change_count = $1 WHERE user_id = $2",
+      //       [newCount, user_id]
+      //     );
+      //   }
+      // };
+
       argsArr.push(user_id);
       if (newUsername) {
+        // usernameChangeCountCheck();
         paramToUpdate.push("username");
         argsArr.push(newUsername);
         funcReturnArr.push("username");

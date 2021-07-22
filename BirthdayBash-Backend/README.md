@@ -36,18 +36,21 @@ Ex :-**
 
 >
 
-- **Returns a accesstoken**
+- **Returns a access , refresh token cookie that is set in the browser**
 
-## User Profile Route(GET Request) (Proctected Route ,Only accessed by use of accesstoken )
+## User Profile Route(GET Request) (Proctected Route)
 
 > **`http://localhost:4000/api/v1/userProfile/showUserProfile/`**
 
-- **Use a Authorization header and put value in it like this: Bearer
-  acccesstoken**
-- **It returns the particular user data whose accesstoken is given in the
-  header**
+- **It returns the particular user data**
 
-## User Search Route(GET Request) (Proctected Route ,Only accessed by use of accesstoken )
+## User Logout Route(GET Request) (Proctected Route)
+
+> **`http://localhost:4000/api/v1/logout/`**
+
+- **It deletes the cookies from browser and logout user**
+
+## User Search Route(GET Request) (Proctected Route)
 
 > **`http://localhost:4000/api/v1/userProfile/searchUser/`**
 
@@ -94,7 +97,7 @@ Ex :-**
 
 ```
 
-## User Edit Profile Route(PUT Request) (Proctected Route ,Only accessed by use of accesstoken )
+## User Edit Profile Route(PUT Request) (Proctected Route)
 
 > **`http://localhost:4000/api/v1/userProfile/editProfile/`**
 
