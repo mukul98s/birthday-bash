@@ -4,11 +4,12 @@ import { GlobalContext } from "../State/GlobalState";
 
 const PrivateRouteLogin = ({ children, ...rest }) => {
   const { isLogin } = useContext(GlobalContext);
+
   return (
     <Route
       {...rest}
       render={() => {
-        return isLogin ? children : <Redirect to="/login"></Redirect>;
+        return isLogin ? children : <Redirect to="/login" />;
       }}
     />
   );
