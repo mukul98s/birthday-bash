@@ -1,9 +1,5 @@
 # node modules
 /BirthdayBash-Backend/node_modules
-/BirthdayBash-Backend/package-lock.json
-/BirthdayBash-Backend/yarn.lock
-/frontend/package-lock.json
-/frontend/yarn.lock
 /BirthdayBash-Backend/todos.txt
 /frontend/node_modules
 
