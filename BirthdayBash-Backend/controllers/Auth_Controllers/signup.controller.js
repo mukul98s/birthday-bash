@@ -1,7 +1,7 @@
 const createError = require("http-errors");
 const bcrypt = require("bcrypt");
-const db = require("../db/index");
-const { userSignUpSchema } = require("../helper/validation");
+const db = require("../../db/index");
+const { userSignUpSchema } = require("../../helper/validation");
 
 module.exports = {
   signup: async (req, res, next) => {

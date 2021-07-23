@@ -1,6 +1,8 @@
 const Route = require("express").Router();
 
-const { signup } = require("../../controllers/signup.controller");
+const {
+  signup,
+} = require("../../controllers/Auth_Controllers/signup.controller");
 
 Route.post("/", signup);
 

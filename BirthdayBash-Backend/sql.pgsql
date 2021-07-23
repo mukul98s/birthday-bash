@@ -20,11 +20,13 @@ CREATE TABLE users (
     dob VARCHAR NOT NULL,
     gender VARCHAR(10) NOT NULL,
     bio VARCHAR(100) ,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     followers_count BIGINT DEFAULT 0,
-    following_count BIGINT DEFAULT 0
+    following_count BIGINT DEFAULT 0,
+    last_username_change_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 );
-
+    -- username_change_count smallint DEFAULT 0,
+    
 -- For Seaching Feature
 Step 6.>
 CREATE INDEX CONCURRENTLY idx_id_user ON users(id); 
