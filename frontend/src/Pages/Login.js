@@ -7,6 +7,9 @@ import TextField from "@material-ui/core/TextField";
 import cancel from "../assets/cancel.svg";
 import { useAuth } from "../State/LoginState";
 
+import { motion } from "framer-motion";
+import { pageAnimation } from "../animation";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +45,13 @@ const Login = () => {
   return (
     <Wrapper>
       <Header />
-      <div className="container">
+      <motion.div
+        variants={pageAnimation}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="container"
+      >
         <div className="cross">
           <Link to="/">
             <img src={cancel} alt="" />
@@ -77,7 +86,7 @@ const Login = () => {
           <h4>Or Login</h4>
         </article>
         <Social />
-      </div>
+      </motion.div>
     </Wrapper>
   );
 };

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { Header, Social } from "../Components";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import cake from "../assets/cake.svg";
 
@@ -18,16 +19,24 @@ const Home = () => {
     <Wrapper>
       <Header />
       <section className="container">
-        <div className="banner">
+        <motion.div
+          animate={{ scale: 1, opacity: 1, rotate: 0 }}
+          initial={{ scale: 2, opacity: 0, rotate: 180 }}
+          className="banner"
+        >
           <img src={cake} alt="cake" />
-        </div>
+        </motion.div>
         <div>
-          <Link className="button link-button" to="/login">
-            login
-          </Link>
-          <Link className="button link-button" to="/signup">
-            Signup
-          </Link>
+          <motion.div initial={{ x: 1000 }} animate={{ x: 0 }}>
+            <Link className="button link-button" to="/login">
+              login
+            </Link>
+          </motion.div>
+          <motion.div initial={{ x: -1000 }} animate={{ x: 0 }}>
+            <Link className="button link-button" to="/signup">
+              Signup
+            </Link>
+          </motion.div>
         </div>
 
         <article>

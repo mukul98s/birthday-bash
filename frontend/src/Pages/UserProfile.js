@@ -3,49 +3,58 @@ import styled from "styled-components";
 
 import { Header, BottomNavbar } from "../Components";
 import { GlobalContext } from "../State/GlobalState";
+import { motion } from "framer-motion";
+import { pageAnimation } from "../animation";
 
 const UserProfile = () => {
   const { setIsLogin } = useContext(GlobalContext);
   return (
     <React.Fragment>
       <Header />
-      <Wrapper>
-        <div className="container">
-          <main>
-            <article>
-              <aside>
-                <img
-                  src="https://wallpapercave.com/wp/mJRp4Xn.jpg"
-                  alt="profileImage"
-                />
-              </aside>
-              <aside>
-                <h3>Steve Jobs</h3>
-                <h4>Followers : 151M </h4>
-                <h4>Following : 1 </h4>
-              </aside>
-            </article>
-            <div>
-              <p>
-                Founder & CEO of Apple <br />
-                Founder & ex-CEO of NeXT
-                <br />
-                ex-CEO of Pixar
-              </p>
-            </div>
-          </main>
-        </div>
-        <div className="underline"></div>
-        <div className="container">
-          <div>
-            <h1>Recently Wished</h1>
+      <motion.div
+        variants={pageAnimation}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
+        <Wrapper>
+          <div className="container">
+            <main>
+              <article>
+                <aside>
+                  <img
+                    src="https://wallpapercave.com/wp/mJRp4Xn.jpg"
+                    alt="profileImage"
+                  />
+                </aside>
+                <aside>
+                  <h3>Steve Jobs</h3>
+                  <h4>Followers : 151M </h4>
+                  <h4>Following : 1 </h4>
+                </aside>
+              </article>
+              <div>
+                <p>
+                  Founder & CEO of Apple <br />
+                  Founder & ex-CEO of NeXT
+                  <br />
+                  ex-CEO of Pixar
+                </p>
+              </div>
+            </main>
           </div>
-        </div>
-        <button className="button" onClick={() => setIsLogin(false)}>
-          Logout
-        </button>
-      </Wrapper>
-      <BottomNavbar />
+          <div className="underline"></div>
+          <div className="container">
+            <div>
+              <h1>Recently Wished</h1>
+            </div>
+          </div>
+          <button className="button" onClick={() => setIsLogin(false)}>
+            Logout
+          </button>
+        </Wrapper>
+        <BottomNavbar />
+      </motion.div>
     </React.Fragment>
   );
 };
