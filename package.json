@@ -1,0 +1,25 @@
+{
+  "name": "birthday-bash",
+  "version": "1.0.0",
+  "description": "If you always forgot to wish your friends and families their birthday then use this app to always keep a record of all birthday.",
+  "main": "index.js",
+  "scripts": {
+    "frontend": "npm start --prefix frontend",
+    "backend": "npm start --prefix BirthdayBash-Backend",
+    "birthday": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mukul98s/birthday-bash.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mukul98s/birthday-bash/issues"
+  },
+  "homepage": "https://github.com/mukul98s/birthday-bash#readme",
+  "dependencies": {
+    "concurrently": "^6.2.1"
+  }
+}
