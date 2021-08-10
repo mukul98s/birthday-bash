@@ -110,7 +110,6 @@ Ex :-**
  "newUsername":"test",
  "newPassword":"testpasswrd",
  "newBio":"test bio",
- "newDob":"2021-05-20"
 }
 
 ```

@@ -18,7 +18,7 @@ const userSignUpSchema = Joi.object()
       .lowercase()
       .valid("male", "female", "hidden", "other")
       .required(),
-    dob: Joi.string().trim().required(),
+    dob: Joi.date().required(),
     bio: Joi.string().max(100).optional(),
   })
   .options({ abortEarly: false });
@@ -41,7 +41,6 @@ const userEditSchema = Joi.object()
       .max(50)
       .optional(),
     newPassword: Joi.string().min(8).optional(),
-    newDob: Joi.date().optional(),
     newBio: Joi.string().max(100).optional(),
   })
   .options({ abortEarly: false });

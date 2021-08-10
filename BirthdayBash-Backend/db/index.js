@@ -12,4 +12,8 @@ module.exports = {
     const res = await pool.query(text, params);
     return res;
   },
+  async connect() {
+    const client = await pool.connect();
+    return client;
+  },
 };

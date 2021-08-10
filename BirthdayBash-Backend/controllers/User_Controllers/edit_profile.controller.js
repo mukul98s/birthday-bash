@@ -8,7 +8,7 @@ module.exports = {
     try {
       const result = await userEditSchema.validateAsync(req.body);
 
-      const { newUsername, newBio, newDob, newPassword } = result;
+      const { newUsername, newBio, newPassword } = result;
 
       const { user_id } = req.payload;
       const paramToUpdate = [];
@@ -36,11 +36,30 @@ module.exports = {
       // };
 
       argsArr.push(user_id);
+
       if (newUsername) {
         // usernameChangeCountCheck();
-        paramToUpdate.push("username");
-        argsArr.push(newUsername);
-        funcReturnArr.push("username");
+        // paramToUpdate.push("username");
+        // argsArr.push(newUsername);
+        // funcReturnArr.push("username");
+        const client = await db.connect();
+        try {
+          await client.query("BEGIN");
+          await client.query("UPDATE users SET username=$1 WHERE user_id=$2", [
+            newUsername,
+            user_id,
+          ]);
+          await client.query(
+            "UPDATE followers SET dest_username=$1 WHERE dest_user_id=$2",
+            [newUsername, user_id]
+          );
+          await client.query("COMMIT");
+        } catch (error) {
+          await client.query("ROLLBACK");
+          next(error);
+        } finally {
+          client.release();
+        }
       }
 
       if (newPassword) {
@@ -52,32 +71,29 @@ module.exports = {
       if (newBio) {
         paramToUpdate.push("bio");
         argsArr.push(newBio);
-        funcReturnArr.push("bio");
+        // funcReturnArr.push("bio");
       }
 
-      if (newDob) {
-        paramToUpdate.push("dob");
-        argsArr.push(newDob);
-        funcReturnArr.push("dob");
+      if (newBio || newPassword) {
+        let mainQuery = `UPDATE users SET ${paramToUpdate.map(
+          (col, i) => `${col} = $${2 + i}`
+        )} WHERE user_id = $1`;
+        await db.query(mainQuery, argsArr);
       }
+      // let returnQuery = `RETURNING ${funcReturnArr.join(", ")} `;
 
-      let mainQuery = `UPDATE users SET ${paramToUpdate.map(
-        (col, i) => `${col} = $${2 + i}`
-      )} WHERE user_id = $1`;
+      // let finalQuery;
 
-      let returnQuery = `RETURNING ${funcReturnArr.join(", ")} `;
+      // if (newBio) {
+      //   finalQuery = mainQuery + " " + returnQuery;
+      // } else {
+      //   finalQuery = mainQuery;
+      // }
 
-      let finalQuery;
+      // const queryResult =await db.query(mainQuery, argsArr);
 
-      if (newUsername || newBio || newDob) {
-        finalQuery = mainQuery + " " + returnQuery;
-      } else {
-        finalQuery = mainQuery;
-      }
-
-      const queryResult = await db.query(finalQuery, argsArr);
-
-      res.json(queryResult.rows[0]);
+      // res.json(queryResult.rows[0]);
+      res.send("Updated Details Successfully");
     } catch (error) {
       if (error.isJoi == true) {
         const details = error.details;
