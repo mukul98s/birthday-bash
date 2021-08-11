@@ -9,3 +9,4 @@
 /.vscode
 
 /BirthdayBash-Backend/.env
+frontend/.env
