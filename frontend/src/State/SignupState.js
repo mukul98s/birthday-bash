@@ -1,16 +1,17 @@
+import axios from "axios";
 import React from "react";
+import { BASE_URL } from "../constant/baseUrl";
 
 export const SignUpContext = React.createContext();
 
 export const SignUpProvider = ({ children }) => {
   const createUser = async (user) => {
-    await fetch("http://localhost:4000/api/v1/signup/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    try {
+      const response = await axios.post(`${BASE_URL}/signup`, user);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
