@@ -1,12 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import styled from "styled-components";
 
 import { Header, BottomNavbar } from "../Components";
 import { GlobalContext } from "../State/GlobalState";
 import { motion } from "framer-motion";
 import { pageAnimation } from "../animation";
+import axios from "axios";
+import { BASE_URL } from "../constant/baseUrl";
 
 const UserProfile = () => {
+  const logout = useCallback(async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/logout`);
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
+    }
+  });
+
   const { setIsLogin } = useContext(GlobalContext);
   return (
     <React.Fragment>
@@ -49,7 +60,7 @@ const UserProfile = () => {
               <h1>Recently Wished</h1>
             </div>
           </div>
-          <button className="button" onClick={() => setIsLogin(false)}>
+          <button className="button" onClick={() => logout()}>
             Logout
           </button>
         </Wrapper>
