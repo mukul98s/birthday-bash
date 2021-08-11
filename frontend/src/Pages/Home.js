@@ -8,13 +8,6 @@ import { motion } from "framer-motion";
 import cake from "../assets/cake.svg";
 
 const Home = () => {
-  axios
-    .post("http://localhost:4000/api/v1/login/", {
-      email: "mukul@gmail.com",
-      password: "123456789",
-    })
-    .then((res) => console.log(res.data));
-
   return (
     <Wrapper>
       <Header />
