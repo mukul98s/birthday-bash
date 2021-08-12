@@ -3,7 +3,7 @@ const createError = require("http-errors");
 
 module.exports = {
   followUser: async (req, res, next) => {
-    const { userToFollow, usernameToFollow } = req.body;
+    const { userToFollow } = req.body;
     try {
       const { user_id } = req.payload;
 
@@ -13,19 +13,13 @@ module.exports = {
         );
       }
 
-      if (!usernameToFollow) {
-        throw createError.BadRequest(
-          "Invalid Request(usernameToFollow not included)"
-        );
-      }
-
       if (user_id == userToFollow) {
         throw createError.BadRequest("Invalid Request");
       }
 
       await db.query(
-        "INSERT INTO followers(source_user_id,dest_user_id,dest_username) VALUES($1,$2,$3)",
-        [user_id, userToFollow, usernameToFollow]
+        "INSERT INTO followers(source_user_id,dest_user_id) VALUES($1,$2)",
+        [user_id, userToFollow]
       );
 
       res.status(200).send("Followed Successfully");

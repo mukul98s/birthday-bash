@@ -14,7 +14,7 @@ Step 5.>
 CREATE TABLE users (
     user_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     email VARCHAR(50) UNIQUE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id SERIAL ,
     username VARCHAR(50) NOT NULL,
     password VARCHAR NOT NULL,
     dob TIMESTAMPTZ NOT NULL,
@@ -22,23 +22,23 @@ CREATE TABLE users (
     bio VARCHAR(100) ,
     followers_count BIGINT DEFAULT 0,
     following_count BIGINT DEFAULT 0
+
 );
     --last_username_change_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     -- username_change_count smallint DEFAULT 0,
 Step 6.>   
 CREATE TABLE followers (
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id SERIAL,
     source_user_id UUID REFERENCES users(user_id),
-    dest_user_id  UUID REFERENCES users(user_id),
-    dest_username VARCHAR(50) NOT NULL
+    dest_user_id  UUID REFERENCES users(user_id)
 );
-    
+    -- dest_username VARCHAR(50) NOT NULL
 
--- For Seaching Feature
+-- For Seaching Feature 
 Step 7.>
-CREATE INDEX CONCURRENTLY idx_id_user ON users(created_at,username); 
+CREATE INDEX CONCURRENTLY idx_id_user ON users(id,username); 
 
-CREATE INDEX CONCURRENTLY idx_followers ON followers(created_at,source_user_id,dest_user_id);
+CREATE INDEX CONCURRENTLY idx_followers ON followers(id,source_user_id,dest_user_id);
 
 Step 8.>
 CREATE EXTENSION pg_trgm;

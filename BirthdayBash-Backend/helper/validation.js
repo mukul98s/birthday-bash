@@ -40,6 +40,7 @@ const userEditSchema = Joi.object()
       .rule({ message: "Username Can Only Contain Alphabets" })
       .max(50)
       .optional(),
+    currentPassword:Joi.string().min(8).optional(),
     newPassword: Joi.string().min(8).optional(),
     newBio: Joi.string().max(100).optional(),
   })
