@@ -1,36 +1,38 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import { BiHomeCircle } from "react-icons/bi";
 import { BsSearch, BsPlusSquare } from "react-icons/bs";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
+
 const BottomNavbar = () => {
+  const { url } = useRouteMatch();
   return (
     <Wrapper>
       <nav>
         <div>
-          <Link to="/home">
+          <Link to={`${url}/feed`}>
             <BiHomeCircle />
           </Link>
         </div>
         <div>
-          <Link>
+          <Link to={`${url}/search`}>
             <BsSearch />
           </Link>
         </div>
         <div>
-          <Link>
+          <Link to={`${url}/addUser`}>
             <BsPlusSquare />
           </Link>
         </div>
         <div>
-          <Link>
+          <Link to={`${url}/notification`}>
             <IoIosNotificationsOutline />
           </Link>
         </div>
         <div>
-          <Link to="/profile">
+          <Link to={`${url}/profile`}>
             <CgProfile />
           </Link>
         </div>
