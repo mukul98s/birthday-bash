@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { Header, Social } from "../Components";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
