@@ -52,8 +52,6 @@ const SignUp = () => {
       gender !== null &&
       selectedDate !== null;
 
-    console.log(filledProperly);
-
     if (filledProperly) {
       if (password === confirmPassword) {
         createUser({
