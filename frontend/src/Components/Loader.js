@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import BottomNavbar from "./BottomNavbar";
+import Header from "./Header";
 
 const Loader = () => {
   return (
     <Wrapper>
+      <Header />
       <div className="lds-ripple">
         <div></div>
         <div></div>
       </div>
+      <BottomNavbar />
     </Wrapper>
   );
 };
