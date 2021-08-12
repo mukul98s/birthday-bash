@@ -4,23 +4,12 @@ import { motion, useViewportScroll, useTransform } from "framer-motion";
 
 const Header = () => {
   const { scrollYProgress } = useViewportScroll();
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.3]);
   return (
     <Wrapper>
-      <motion.header
-        initial={{ y: -100, scale: 10 }}
-        animate={{ y: 0, scale: 1 }}
-        when="afterChildren"
-        style={{ scale: scale }}
-      >
+      <motion.header style={{ scale: scale }}>
         <div style={{ scaleY: scrollYProgress }}>
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          >
-            Birthday Bash
-          </motion.h1>
+          <motion.h1>Birthday Bash</motion.h1>
         </div>
       </motion.header>
     </Wrapper>
