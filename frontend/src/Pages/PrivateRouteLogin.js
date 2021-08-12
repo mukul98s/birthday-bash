@@ -1,15 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Redirect, Route } from "react-router";
-import { GlobalContext } from "../State/GlobalState";
 
 const PrivateRouteLogin = ({ children, ...rest }) => {
-  const { isLogin } = useContext(GlobalContext);
+  const cookie = document.cookie;
 
   return (
     <Route
       {...rest}
       render={() => {
-        return isLogin ? children : <Redirect to="/login" />;
+        return cookie ? children : <Redirect to="/login" />;
       }}
     />
   );
