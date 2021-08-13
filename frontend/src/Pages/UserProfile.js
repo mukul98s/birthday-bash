@@ -9,10 +9,8 @@ const UserProfile = () => {
   const logout = useCallback(async () => {
     try {
       const response = await axios.get(`${BASE_URL}/logout`);
-      if (response.status === 200) {
-        document.location.reload(true);
-      }
       console.log(response);
+      window.location.reload(response.status === 200);
     } catch (error) {
       console.log(error.message);
     }
