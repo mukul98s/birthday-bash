@@ -1,28 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-import { Header, BottomNavbar } from "../Components";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
-import { lazy, Suspense } from "react";
-
-const UserProfile = lazy(() => import("../Pages/UserProfile"));
-const Feed = lazy(() => import("../Components/Feed"));
+import { Header, BottomNavbar, Loader, Feed } from "../Components";
+import { Switch, useRouteMatch } from "react-router-dom";
+import { Suspense } from "react";
+import PrivateRoute from "../utils/PrivateRoute";
+import { UserProfile } from "../Pages";
 
 const UserHome = () => {
   const { url } = useRouteMatch();
   return (
     <Wrapper>
       <Header />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         <Switch>
-          <Route exact path={`${url}/feed`}>
-            <Feed />
-          </Route>
-          <Route path={`${url}/search`}></Route>
-          <Route path={`${url}/addUser`}></Route>
-          <Route path={`${url}/notification`}></Route>
-          <Route path={`${url}/profile`}>
-            <UserProfile />
-          </Route>
+          <PrivateRoute exact path={`${url}/feed`} component={Feed} />
+          <PrivateRoute path={`${url}/search`} />
+          <PrivateRoute path={`${url}/addUser`} />
+          <PrivateRoute path={`${url}/notification`} />
+          <PrivateRoute path={`${url}/profile`} component={UserProfile} />
         </Switch>
       </Suspense>
       <BottomNavbar />
