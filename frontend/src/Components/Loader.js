@@ -7,9 +7,11 @@ const Loader = () => {
   return (
     <Wrapper>
       <Header />
-      <div className="lds-ripple">
-        <div></div>
-        <div></div>
+      <div className="loader">
+        <div className="lds-ripple">
+          <div></div>
+          <div></div>
+        </div>
       </div>
       <BottomNavbar />
     </Wrapper>
@@ -17,6 +19,12 @@ const Loader = () => {
 };
 
 const Wrapper = styled.div`
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+  }
   .lds-ripple {
     display: inline-block;
     position: relative;
