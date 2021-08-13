@@ -1,7 +1,8 @@
-import Home from "./Home";
-import Login from "./Login";
-import SignUp from "./SignUp";
-import UserHome from "./UserHome";
-import UserProfile from "./UserProfile";
+import React from "react";
 
-export { Home, Login, SignUp, UserHome, UserProfile };
+export const Home = React.lazy(() => import("./Home"));
+export const Error = React.lazy(() => import("./Error"));
+export const Login = React.lazy(() => import("./Login"));
+export const SignUp = React.lazy(() => import("./SignUp"));
+export const UserHome = React.lazy(() => import("./UserHome"));
+export const UserProfile = React.lazy(() => import("./UserProfile"));
