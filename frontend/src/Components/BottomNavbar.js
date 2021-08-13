@@ -5,6 +5,7 @@ import { BiHomeCircle } from "react-icons/bi";
 import { BsSearch, BsPlusSquare } from "react-icons/bs";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
+import Badge from "@material-ui/core/Badge";
 
 const BottomNavbar = () => {
   const { url } = useRouteMatch();
@@ -28,7 +29,17 @@ const BottomNavbar = () => {
         </div>
         <div>
           <Link to={`${url}/notification`}>
-            <IoIosNotificationsOutline />
+            <Badge
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              color="error"
+              badgeContent={10}
+              max={9}
+            >
+              <IoIosNotificationsOutline />
+            </Badge>
           </Link>
         </div>
         <div>
