@@ -1,8 +1,5 @@
-import React, { useContext, useCallback } from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
-
-import { Header, BottomNavbar } from "../Components";
-import { GlobalContext } from "../State/GlobalState";
 import { motion } from "framer-motion";
 import { pageAnimation } from "../animation";
 import axios from "axios";
@@ -13,60 +10,56 @@ const UserProfile = () => {
     try {
       const response = await axios.get(`${BASE_URL}/logout`);
       console.log(response);
+      window.location.reload(response.status === 200);
     } catch (error) {
       console.log(error.message);
     }
-  });
+  }, []);
 
-  const { setIsLogin } = useContext(GlobalContext);
   return (
-    <React.Fragment>
-      <Header />
-      <motion.div
-        variants={pageAnimation}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-      >
-        <Wrapper>
-          <div className="container">
-            <main>
-              <article>
-                <aside>
-                  <img
-                    src="https://wallpapercave.com/wp/mJRp4Xn.jpg"
-                    alt="profileImage"
-                  />
-                </aside>
-                <aside>
-                  <h3>Steve Jobs</h3>
-                  <h4>Followers : 151M </h4>
-                  <h4>Following : 1 </h4>
-                </aside>
-              </article>
-              <div>
-                <p>
-                  Founder & CEO of Apple <br />
-                  Founder & ex-CEO of NeXT
-                  <br />
-                  ex-CEO of Pixar
-                </p>
-              </div>
-            </main>
-          </div>
-          <div className="underline"></div>
-          <div className="container">
+    <motion.div
+      variants={pageAnimation}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
+      <Wrapper>
+        <div className="container">
+          <main>
+            <article>
+              <aside>
+                <img
+                  src="https://wallpapercave.com/wp/mJRp4Xn.jpg"
+                  alt="profileImage"
+                />
+              </aside>
+              <aside>
+                <h3>Steve Jobs</h3>
+                <h4>Followers : 151M </h4>
+                <h4>Following : 1 </h4>
+              </aside>
+            </article>
             <div>
-              <h1>Recently Wished</h1>
+              <p>
+                Founder & CEO of Apple <br />
+                Founder & ex-CEO of NeXT
+                <br />
+                ex-CEO of Pixar
+              </p>
             </div>
+          </main>
+        </div>
+        <div className="underline"></div>
+        <div className="container">
+          <div>
+            <h1>Recently Wished</h1>
           </div>
-          <button className="button" onClick={() => logout()}>
-            Logout
-          </button>
-        </Wrapper>
-        <BottomNavbar />
-      </motion.div>
-    </React.Fragment>
+        </div>
+        <button className="button" onClick={() => logout()}>
+          Logout
+        </button>
+      </Wrapper>
+    </motion.div>
   );
 };
 

@@ -1,18 +1,30 @@
 import React from "react";
 import styled from "styled-components";
+import BottomNavbar from "./BottomNavbar";
+import Header from "./Header";
 
 const Loader = () => {
   return (
     <Wrapper>
-      <div className="lds-ripple">
-        <div></div>
-        <div></div>
+      <Header />
+      <div className="loader">
+        <div className="lds-ripple">
+          <div></div>
+          <div></div>
+        </div>
       </div>
+      <BottomNavbar />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+  }
   .lds-ripple {
     display: inline-block;
     position: relative;

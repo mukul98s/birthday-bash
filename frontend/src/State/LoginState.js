@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState } from "react";
-import { GlobalContext } from "./GlobalState";
 import axios from "axios";
 import { BASE_URL } from "../constant/baseUrl";
 axios.defaults.withCredentials = true;
@@ -24,7 +23,6 @@ export const useAuth = () => {
 
 const useProvideAuth = () => {
   const [user, setUser] = useState(null);
-  const { setIsLogin } = useContext(GlobalContext);
 
   const login = async (userDetails) => {
     try {
@@ -35,7 +33,6 @@ const useProvideAuth = () => {
       );
       if (response.status === 200) {
         setUser(true);
-        setIsLogin(true);
       } else {
         setUser(false);
       }
