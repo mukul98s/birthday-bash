@@ -1,26 +1,17 @@
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
-import { Home } from "./Pages/";
+import { Home, Login, Error, SignUp, UserHome, UserProfile } from "./Pages/";
 import { ProvideAuth } from "./State/LoginState";
-import PrivateRouteLogin from "./Pages/PrivateRouteLogin";
+import PrivateRoute from "./utils/PrivateRoute";
 import { SignUpProvider } from "./State/SignupState";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import Loader from "./Components/Loader";
 
 function App() {
-  // Lazy Imports
-  const UserHome = lazy(() => import("./Pages/UserHome"));
-  const UserProfile = lazy(() => import("./Pages/UserProfile"));
-  const Login = lazy(() => import("./Pages/Login"));
-  const SignUp = lazy(() => import("./Pages/SignUp"));
-  const Error = lazy(() => import("./Pages/Error"));
-
   return (
     <Suspense fallback={<Loader />}>
       <Switch>
-        <Route path="/" exact={true}>
-          <Home />
-        </Route>
+        <Route path="/" exact={true} component={Home} />
         <Route path="/login">
           <ProvideAuth>
             <Login />
@@ -31,15 +22,9 @@ function App() {
             <SignUp />
           </SignUpProvider>
         </Route>
-        <PrivateRouteLogin path="/home">
-          <UserHome />
-        </PrivateRouteLogin>
-        <PrivateRouteLogin path="/profile">
-          <UserProfile />
-        </PrivateRouteLogin>
-        <Route path="*">
-          <Error />
-        </Route>
+        <PrivateRoute path="/home" component={UserHome} />
+        <PrivateRoute path="/profile" component={UserProfile} />
+        <Route path="*" component={Error} />
       </Switch>
     </Suspense>
   );
