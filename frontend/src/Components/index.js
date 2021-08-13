@@ -1,6 +1,8 @@
-import Header from "./Header";
-import Social from "./Social";
-import Birthday from "./Birthday";
-import BottomNavbar from "./BottomNavbar";
+import React from "react";
 
-export { Header, Social, Birthday, BottomNavbar };
+export const Birthday = React.lazy(() => import("./Birthday"));
+export const BottomNavbar = React.lazy(() => import("./BottomNavbar"));
+export const Feed = React.lazy(() => import("./Feed"));
+export const Header = React.lazy(() => import("./Header"));
+export const Loader = React.lazy(() => import("./Loader"));
+export const Social = React.lazy(() => import("./Social"));
