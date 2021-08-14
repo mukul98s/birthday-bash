@@ -36,7 +36,7 @@ CREATE TABLE followers (
 
 -- For Seaching Feature 
 Step 7.>
-CREATE INDEX CONCURRENTLY idx_id_user ON users(id,username); 
+CREATE INDEX CONCURRENTLY idx_user ON users(id,username,dob); 
 
 CREATE INDEX CONCURRENTLY idx_followers ON followers(id,source_user_id,dest_user_id);
 
