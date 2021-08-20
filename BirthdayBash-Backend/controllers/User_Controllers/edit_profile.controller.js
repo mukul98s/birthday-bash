@@ -32,10 +32,13 @@ module.exports = {
           );
         } else {
           const created_at = result.rows[0].created_at;
+
           const now = new Date();
-          const calc = Math.floor(now - created_at) / (1000 * 3600 * 24);
-          console.log(calc);
+
+          const calc = (now - created_at) / (1000 * 3600 * 24);
+
           const canEdit = calc === 7 ? true : false;
+
           if (canEdit) {
             paramToUpdate.push('username');
             argsArr.push(newUsername);
@@ -44,14 +47,8 @@ module.exports = {
               [user_id, now]
             );
           } else {
-            // throw createError.BadRequest(
-            //   'Username can only be changed once in 7 days'
-            // );
-            const d = 7 - Math.ceil(calc);
-            const h = 24 - Math.floor(calc * 24);
-            const m = 60 - Math.floor(calc * 1440);
             throw createError.BadRequest(
-              `Username can only be changed in ${d} days ${h} hours ${m} min`
+              'Username can only be changed once in 7 days'
             );
           }
         }
