@@ -2,7 +2,8 @@ Step 1.>
 CREATE DATABASE birthdaybash;
 
 Step 2.>
-SET TIMEZONE='UTC';
+SET TIMEZONE='Asia/Kolkata'; //this is for local setup 
+SET TIMEZONE='UTC'; // this will be used in production
 
 Step 3.>
 \c birthdaybash ;   -- to connect to database
@@ -35,13 +36,15 @@ CREATE TABLE followers (
 CREATE TABLE edits(
     user_id UUID REFERENCES users(user_id),
     created_at TIMESTAMPTZ NOT NULL
- );
+);
 
 -- For Seaching Feature 
 Step 7.>
 CREATE INDEX CONCURRENTLY idx_user ON users(id,username,dob); 
 
 CREATE INDEX CONCURRENTLY idx_followers ON followers(id,source_user_id,dest_user_id);
+
+CREATE INDEX CONCURRENTLY idx_edits ON edits(user_id);
 
 Step 8.>
 CREATE EXTENSION pg_trgm;
