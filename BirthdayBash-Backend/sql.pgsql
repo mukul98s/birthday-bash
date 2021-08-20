@@ -35,7 +35,7 @@ CREATE TABLE followers (
 CREATE TABLE edits(
     user_id UUID REFERENCES users(user_id),
     created_at TIMESTAMPTZ NOT NULL
-);
+ );
 
 -- For Seaching Feature 
 Step 7.>
