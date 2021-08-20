@@ -1,9 +1,9 @@
-const Route = require("express").Router();
+const Route = require('express').Router();
 
 const {
   forgotPassword,
-} = require("../../controllers/Auth_Controllers/forgot_password.controller");
+} = require('../../controllers/Auth_Controllers/forgot_password.controller');
 
-Route.get("/", forgotPassword);
+Route.get('/', forgotPassword);
 
 module.exports = Route;

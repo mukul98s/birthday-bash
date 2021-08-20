@@ -1,4 +1,4 @@
-const db = require("../../db/index");
+const db = require('../../db/index');
 
 module.exports = {
   homeTimeline: async (req, res, next) => {
@@ -12,7 +12,7 @@ module.exports = {
         //   [user_id, last_seen_id]
         // );
         const moreResults = await db.query(
-          "SELECT followers.id,followers.dest_user_id ,users.username, users.dob from followers inner join users ON users.user_id=followers.dest_user_id WHERE followers.source_user_id=$1 AND followers.id > $2 ORDER BY followers.id LIMIT 10",
+          'SELECT followers.id,followers.dest_user_id ,users.username, users.dob from followers inner join users ON users.user_id=followers.dest_user_id WHERE followers.source_user_id=$1 AND followers.id > $2 ORDER BY followers.id LIMIT 10',
           [user_id, last_seen_id]
         );
 
@@ -26,7 +26,7 @@ module.exports = {
             res.json(moreResults.rows);
           }
         } else {
-          return res.send("End Of List");
+          return res.json('End Of List');
         }
       } else {
         // const ResultList = await db.query(
@@ -34,7 +34,7 @@ module.exports = {
         //   [user_id]
         // );
         const ResultList = await db.query(
-          "SELECT followers.id,followers.dest_user_id ,users.username, users.dob from followers inner join users ON users.user_id=followers.dest_user_id WHERE followers.source_user_id=$1 ORDER BY followers.id LIMIT 10",
+          'SELECT followers.id,followers.dest_user_id ,users.username, users.dob from followers inner join users ON users.user_id=followers.dest_user_id WHERE followers.source_user_id=$1 ORDER BY followers.id LIMIT 10',
           [user_id]
         );
 
@@ -48,7 +48,7 @@ module.exports = {
             res.json(ResultList.rows);
           }
         } else {
-          return res.status(204).send("No Following Data To Show");
+          return res.status(204).json('No Following Data To Show');
         }
       }
     } catch (error) {

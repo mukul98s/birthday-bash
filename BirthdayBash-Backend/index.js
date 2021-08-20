@@ -1,10 +1,10 @@
-const express = require("express");
-const createError = require("http-errors");
-const helmet = require("helmet");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
+const express = require('express');
+const createError = require('http-errors');
+const helmet = require('helmet');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
-require("dotenv").config();
+require('dotenv').config();
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(
     useDefaults: true,
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "http://localhost:3000"],
+      scriptSrc: ["'self'", 'http://localhost:3000'],
     },
   })
 );
@@ -33,44 +33,44 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-let whitelist = ["http://localhost:3000", "http://localhost:4000"];
+let whitelist = ['http://localhost:3000', 'http://localhost:4000'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       //|| !origin
       callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"));
+      callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
-  methods: ["GET", "POST", "PUT"],
+  methods: ['GET', 'POST', 'PUT'],
   //Accept application/json? Content-Type:application/json?
-  allowedHeaders: ["Content-Type", "Accept", "origin"],
+  allowedHeaders: ['Content-Type', 'Accept', 'origin'],
   maxAge: 3600,
 };
 
 app.use(cors(corsOptions));
 
-const login = require("./Routes/Auth_Routes/login");
-const logout = require("./Routes/Auth_Routes/logout");
-const signup = require("./Routes/Auth_Routes/signup");
-const userProfile = require("./Routes/User_Routes/user_profile");
+const login = require('./Routes/Auth_Routes/login');
+const logout = require('./Routes/Auth_Routes/logout');
+const signup = require('./Routes/Auth_Routes/signup');
+const userProfile = require('./Routes/User_Routes/user_profile');
 // const forgotPassword = require("./Routes/Auth_Routes/forgot_password");
 // const resetPassword = require("./Routes/Auth_Routes/reset_password");
-const { authVerification } = require("./helper/jwt_helper");
+const { authVerification } = require('./helper/jwt_helper');
 
-app.use("/api/v1/login", login);
+app.use('/api/v1/login', login);
 
-app.use("/api/v1/logout", logout);
+app.use('/api/v1/logout', logout);
 
-app.use("/api/v1/signup", signup);
+app.use('/api/v1/signup', signup);
 
 // app.use("/api/v1/forgotPassword", forgotPassword);
 
 // app.use("/api/v1/resetPassword", resetPassword);
 
-app.use("/api/v1/userProfile", authVerification, userProfile);
+app.use('/api/v1/userProfile', authVerification, userProfile);
 
 app.use(async (req, res, next) => {
   const Error = createError.NotFound();
@@ -79,7 +79,7 @@ app.use(async (req, res, next) => {
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
-  res.send({
+  res.json({
     error: {
       status: err.status || 500,
       message: err.message,
@@ -87,7 +87,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(4000, () => console.log("Server running "));
+app.listen(4000, () => console.log('Server running '));
 
 // app.use(
 //   cors({

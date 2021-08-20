@@ -24,15 +24,18 @@ CREATE TABLE users (
     following_count BIGINT DEFAULT 0
 
 );
-    --last_username_change_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    -- username_change_count smallint DEFAULT 0,
+
 Step 6.>   
 CREATE TABLE followers (
     id SERIAL,
     source_user_id UUID REFERENCES users(user_id),
     dest_user_id  UUID REFERENCES users(user_id)
 );
-    -- dest_username VARCHAR(50) NOT NULL
+
+CREATE TABLE edits(
+    user_id UUID REFERENCES users(user_id),
+    created_at TIMESTAMPTZ NOT NULL
+);
 
 -- For Seaching Feature 
 Step 7.>

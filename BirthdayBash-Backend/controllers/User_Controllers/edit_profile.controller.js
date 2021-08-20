@@ -1,7 +1,7 @@
-const createError = require("http-errors");
-const db = require("../../db/index");
-const bcrypt = require("bcrypt");
-const { userEditSchema } = require("../../helper/validation");
+const createError = require('http-errors');
+const db = require('../../db/index');
+const bcrypt = require('bcrypt');
+const { userEditSchema } = require('../../helper/validation');
 
 module.exports = {
   editProfile: async (req, res, next) => {
@@ -17,20 +17,56 @@ module.exports = {
       argsArr.push(user_id);
 
       if (newUsername) {
-        paramToUpdate.push("username");
-        argsArr.push(newUsername);
+        const result = await db.query(
+          'SELECT created_at FROM edits WHERE user_id=$1',
+          [user_id]
+        );
+
+        if (result.rowCount == 0) {
+          const now = new Date();
+          paramToUpdate.push('username');
+          argsArr.push(newUsername);
+          await db.query(
+            'INSERT INTO edits(user_id,created_at) VALUES($1,$2)',
+            [user_id, now]
+          );
+        } else {
+          const created_at = result.rows[0].created_at;
+          const now = new Date();
+          const calc = Math.floor(now - created_at) / (1000 * 3600 * 24);
+          console.log(calc);
+          const canEdit = calc === 7 ? true : false;
+          if (canEdit) {
+            paramToUpdate.push('username');
+            argsArr.push(newUsername);
+            await db.query(
+              'UPDATE edits SET created_at=$2 WHERE user_id = $1',
+              [user_id, now]
+            );
+          } else {
+            // throw createError.BadRequest(
+            //   'Username can only be changed once in 7 days'
+            // );
+            const d = 7 - Math.ceil(calc);
+            const h = 24 - Math.floor(calc * 24);
+            const m = 60 - Math.floor(calc * 1440);
+            throw createError.BadRequest(
+              `Username can only be changed in ${d} days ${h} hours ${m} min`
+            );
+          }
+        }
       }
 
       if (newPassword && currentPassword) {
         const passwordCheck = await db.query(
-          "SELECT password from users WHERE user_id =$1",
+          'SELECT password from users WHERE user_id =$1',
           [user_id]
         );
         const { password: hashedPassword } = passwordCheck.rows[0];
 
         const isMatch = await bcrypt.compare(currentPassword, hashedPassword);
         if (isMatch) {
-          paramToUpdate.push("password");
+          paramToUpdate.push('password');
           const hashedPassword = await bcrypt.hash(newPassword, 10);
           argsArr.push(hashedPassword);
         } else {
@@ -39,7 +75,7 @@ module.exports = {
       }
 
       if (newBio) {
-        paramToUpdate.push("bio");
+        paramToUpdate.push('bio');
         argsArr.push(newBio);
       }
 
@@ -48,11 +84,11 @@ module.exports = {
       )} WHERE user_id = $1`;
       await db.query(mainQuery, argsArr);
 
-      res.send("Updated Details Successfully");
+      res.json('Updated Details Successfully');
     } catch (error) {
       if (error.isJoi == true) {
         const details = error.details;
-        const errors = details.map((i) => i.message).join(",");
+        const errors = details.map((i) => i.message).join(',');
 
         return next(createError.NotAcceptable(errors));
       }

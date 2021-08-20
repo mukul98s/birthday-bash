@@ -1,4 +1,4 @@
-const Joi = require("joi");
+const Joi = require('joi');
 
 const userSignUpSchema = Joi.object()
   .keys({
@@ -8,7 +8,7 @@ const userSignUpSchema = Joi.object()
       .lowercase()
       .min(2)
       .regex(/^[A-Za-z_ ]+$/)
-      .rule({ message: "Username Can Only Contain Alphabets" })
+      .rule({ message: 'Username Can Only Contain Alphabets' })
       .max(30)
       .required(),
     password: Joi.string().min(8).required(),
@@ -16,7 +16,7 @@ const userSignUpSchema = Joi.object()
       .max(10)
       .trim()
       .lowercase()
-      .valid("male", "female", "hidden", "other")
+      .valid('male', 'female', 'hidden', 'other')
       .required(),
     dob: Joi.date().required(),
     bio: Joi.string().max(100).optional(),
@@ -37,10 +37,10 @@ const userEditSchema = Joi.object()
       .lowercase()
       .min(2)
       .regex(/^[A-Za-z_ ]+$/)
-      .rule({ message: "Username Can Only Contain Alphabets" })
+      .rule({ message: 'Username Can Only Contain Alphabets' })
       .max(50)
       .optional(),
-    currentPassword:Joi.string().min(8).optional(),
+    currentPassword: Joi.string().min(8).optional(),
     newPassword: Joi.string().min(8).optional(),
     newBio: Joi.string().max(100).optional(),
   })

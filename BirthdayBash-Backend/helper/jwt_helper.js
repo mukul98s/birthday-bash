@@ -1,12 +1,12 @@
-const jwt = require("jsonwebtoken");
-const createError = require("http-errors");
+const jwt = require('jsonwebtoken');
+const createError = require('http-errors');
 
 const signAccessToken = (user_id) => {
   return new Promise((reslove, reject) => {
     const payload = { user_id: user_id };
     const options = {
-      expiresIn: "900s",
-      issuer: "BirthdayBash",
+      expiresIn: '900s',
+      issuer: 'BirthdayBash',
     };
     const secret = process.env.ACCESS_TOKEN_SECRET;
 
@@ -23,8 +23,8 @@ const signRefreshToken = (user_id) => {
   return new Promise((reslove, reject) => {
     const payload = { user_id: user_id };
     const options = {
-      expiresIn: "7d",
-      issuer: "BirthdayBash",
+      expiresIn: '7d',
+      issuer: 'BirthdayBash',
     };
     const secret = process.env.REFRESH_TOKEN_SECRET;
 
@@ -46,7 +46,7 @@ const verifyAccessToken = (cookie_info) => {
     jwt.verify(cookie_info, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
       if (payload) {
         resolve(payload);
-      } else if (err.name === "JsonWebTokenError") {
+      } else if (err.name === 'JsonWebTokenError') {
         return reject(createError.Unauthorized());
       } else {
         return reject(createError.Unauthorized(err.message));
@@ -84,8 +84,8 @@ const authVerification = async (req, res, next) => {
       const { user_id } = payload;
       const newAccessToken = await signAccessToken(user_id);
 
-      res.cookie("AccessTokenCookie", newAccessToken, {
-        sameSite: "strict",
+      res.cookie('AccessTokenCookie', newAccessToken, {
+        sameSite: 'strict',
         // secure: true, IN Https only
         httpOnly: true,
         maxAge: 900000, //15m

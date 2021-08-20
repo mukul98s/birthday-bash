@@ -1,5 +1,5 @@
-const db = require("../../db/index");
-const createError = require("http-errors");
+const db = require('../../db/index');
+const createError = require('http-errors');
 
 module.exports = {
   followUser: async (req, res, next) => {
@@ -9,20 +9,20 @@ module.exports = {
 
       if (!userToFollow) {
         throw createError.BadRequest(
-          "Invalid Request(userToUnFollow not included)"
+          'Invalid Request(userToUnFollow not included)'
         );
       }
 
       if (user_id == userToFollow) {
-        throw createError.BadRequest("Invalid Request");
+        throw createError.BadRequest('Invalid Request');
       }
 
       await db.query(
-        "INSERT INTO followers(source_user_id,dest_user_id) VALUES($1,$2)",
+        'INSERT INTO followers(source_user_id,dest_user_id) VALUES($1,$2)',
         [user_id, userToFollow]
       );
 
-      res.status(200).send("Followed Successfully");
+      res.status(200).json('Followed Successfully');
     } catch (error) {
       return next(error);
     }
@@ -33,19 +33,19 @@ module.exports = {
       const { user_id } = req.payload;
       if (!userToUnFollow) {
         throw createError.BadRequest(
-          "Invalid Request(userToUnFollow not included)"
+          'Invalid Request(userToUnFollow not included)'
         );
       }
       if (user_id == userToUnFollow) {
-        throw createError.BadRequest("Invalid Request");
+        throw createError.BadRequest('Invalid Request');
       }
 
       await db.query(
-        "DELETE FROM followers WHERE source_user_id=$1 AND dest_user_id=$2",
+        'DELETE FROM followers WHERE source_user_id=$1 AND dest_user_id=$2',
         [user_id, userToUnFollow]
       );
 
-      res.status(200).send("UnFollowed Successfully");
+      res.status(200).json('UnFollowed Successfully');
     } catch (error) {
       return next(error);
     }

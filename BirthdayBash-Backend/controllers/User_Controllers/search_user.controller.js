@@ -1,4 +1,4 @@
-const db = require("../../db/index");
+const db = require('../../db/index');
 
 module.exports = {
   searchUser: async (req, res, next) => {
@@ -9,8 +9,8 @@ module.exports = {
 
       if (last_seen_id) {
         const moreResults = await db.query(
-          "SELECT user_id, username, id FROM users WHERE username LIKE $1 AND id > $2 ORDER BY id LIMIT 10",
-          ["%" + lowerCaseSearchTerm + "%", last_seen_id]
+          'SELECT user_id, username, id FROM users WHERE username LIKE $1 AND id > $2 ORDER BY id LIMIT 10',
+          ['%' + lowerCaseSearchTerm + '%', last_seen_id]
         );
 
         if (moreResults.rowCount > 0) {
@@ -23,12 +23,12 @@ module.exports = {
             res.json(moreResults.rows);
           }
         } else {
-          return res.status(204).send("No More Match Found");
+          return res.status(204).json('No More Match Found');
         }
       } else {
         const searchResult = await db.query(
-          "SELECT user_id, username, id FROM users WHERE username LIKE $1 ORDER BY id LIMIT 10",
-          ["%" + lowerCaseSearchTerm + "%"]
+          'SELECT user_id, username, id FROM users WHERE username LIKE $1 ORDER BY id LIMIT 10',
+          ['%' + lowerCaseSearchTerm + '%']
         );
 
         if (searchResult.rowCount > 0) {
@@ -41,7 +41,7 @@ module.exports = {
             res.json(searchResult.rows);
           }
         } else {
-          return res.status(404).send("No Match Found");
+          return res.status(404).json('No Match Found');
         }
       }
     } catch (error) {

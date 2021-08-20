@@ -1,8 +1,8 @@
-const createError = require("http-errors");
-const bcrypt = require("bcrypt");
-const db = require("../../db/index");
-const JWT = require("jsonwebtoken");
-const { resetPasswordSchema } = require("../../helper/validation");
+const createError = require('http-errors');
+const bcrypt = require('bcrypt');
+const db = require('../../db/index');
+const JWT = require('jsonwebtoken');
+const { resetPasswordSchema } = require('../../helper/validation');
 
 module.exports = {
   resetPassword: async (req, res, next) => {
@@ -12,7 +12,7 @@ module.exports = {
       const { password } = result;
 
       const userCheck = await db.query(
-        "SELECT password FROM users WHERE user_id = $1",
+        'SELECT password FROM users WHERE user_id = $1',
         [user_id]
       );
 
@@ -24,7 +24,7 @@ module.exports = {
         process.env.FORGOT_PASSWORD_SECRET + userCheck.rows[0].password;
 
       await JWT.verify(token, secret, (err, payload) => {
-        if (err.name == "JsonWebTokenError") {
+        if (err.name == 'JsonWebTokenError') {
           return next(createError.BadRequest());
         } else {
           return next(createError.InternalServerError(err.message));
@@ -33,12 +33,12 @@ module.exports = {
 
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      await db.query("UPDATE users SET password =$1", [hashedPassword]);
+      await db.query('UPDATE users SET password =$1', [hashedPassword]);
 
-      res.status(200).json("Password Reset Successfull");
+      res.status(200).json('Password Reset Successfull');
     } catch (error) {
       if (error.isJoi === true) {
-        return next(createError.BadRequest("Invalid Password"));
+        return next(createError.BadRequest('Invalid Password'));
       }
       next(error);
     }
