@@ -8,7 +8,7 @@ export const SignUpProvider = ({ children }) => {
   const createUser = async (user) => {
     try {
       const response = await axios.post(`${BASE_URL}/signup`, user);
-      console.log(response.data);
+      console.log(response.data.message);
     } catch (error) {
       console.log(error);
     }
