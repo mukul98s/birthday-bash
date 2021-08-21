@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { pageAnimation } from "../animation";
@@ -6,6 +6,7 @@ import axios from "axios";
 import { BASE_URL } from "../constant/baseUrl";
 
 const UserProfile = () => {
+  const [user, setUser] = useState({});
   const logout = useCallback(async () => {
     try {
       const response = await axios.get(`${BASE_URL}/logout`);
@@ -16,6 +17,17 @@ const UserProfile = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const getUserDetails = async () => {
+      const response = await axios.get(
+        `${BASE_URL}/userProfile/showUserProfile`
+      );
+      if (response.status === 200) {
+        setUser(response.data);
+      }
+    };
+    getUserDetails();
+  }, []);
   return (
     <motion.div
       variants={pageAnimation}
@@ -25,29 +37,26 @@ const UserProfile = () => {
     >
       <Wrapper>
         <div className="container">
-          <main>
-            <article>
-              <aside>
-                <img
-                  src="https://wallpapercave.com/wp/mJRp4Xn.jpg"
-                  alt="profileImage"
-                />
-              </aside>
-              <aside>
-                <h3>Steve Jobs</h3>
-                <h4>Followers : 151M </h4>
-                <h4>Following : 1 </h4>
-              </aside>
-            </article>
-            <div>
-              <p>
-                Founder & CEO of Apple <br />
-                Founder & ex-CEO of NeXT
-                <br />
-                ex-CEO of Pixar
-              </p>
-            </div>
-          </main>
+          {user && (
+            <main>
+              <article>
+                <aside>
+                  <img
+                    src="https://wallpapercave.com/wp/mJRp4Xn.jpg"
+                    alt="profileImage"
+                  />
+                </aside>
+                <aside>
+                  <h3>{user.username}</h3>
+                  <h4>Followers : {user.followers_count} </h4>
+                  <h4>Following : {user.following_count} </h4>
+                </aside>
+              </article>
+              <div>
+                <p>{user.bio}</p>
+              </div>
+            </main>
+          )}
         </div>
         <div className="underline"></div>
         <div className="container">
