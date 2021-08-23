@@ -31,7 +31,7 @@ module.exports = {
         if (searchResult.rowCount > 0) {
           if (searchResult.rowCount == 10) {
             const last_id = searchResult.rows[searchResult.rowCount - 1].id;
-            res.json({ resutls: searchResult.rows, l: last_id });
+            res.json({ results: searchResult.rows, l: last_id });
           } else {
             res.json(searchResult.rows);
           }
