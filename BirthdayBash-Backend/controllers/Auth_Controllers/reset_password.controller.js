@@ -40,7 +40,7 @@ module.exports = {
       if (error.isJoi === true) {
         return next(createError.BadRequest('Invalid Password'));
       }
-      next(error);
+      return next(error);
     }
   },
 };

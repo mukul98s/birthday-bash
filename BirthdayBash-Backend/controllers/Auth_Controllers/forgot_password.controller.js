@@ -50,7 +50,7 @@ module.exports = {
       if (error.isJoi === true) {
         return next(createError.BadRequest('Invalid Email!'));
       }
-      next(error);
+      return next(error);
     }
   },
 };

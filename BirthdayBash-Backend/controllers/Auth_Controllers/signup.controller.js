@@ -32,7 +32,7 @@ module.exports = {
 
         return next(createError.NotAcceptable(errors));
       }
-      next(error);
+      return next(error);
     }
   },
 };
