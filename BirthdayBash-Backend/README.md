@@ -42,7 +42,7 @@ Ex :-**
 
 ## User Profile Route(GET Request) (Proctected Route)
 
-> **`http://localhost:4000/api/v1/userProfile/showUserProfile`**
+> **`http://localhost:4000/api/v1/user-profile/show-user-profile`**
 
 - **It returns the particular user data**
 
@@ -54,25 +54,22 @@ Ex :-**
 
 ## User Search Route(GET Request) (Proctected Route)
 
-> **`http://localhost:4000/api/v1/userProfile/searchUser`**
+> **`http://localhost:4000/api/v1/user-profile/search-user`**
 
-**Data To Pass Into Request
+**Data To Pass As Query
 Ex :-**
 
-```
+**`http://localhost:4000/api/v1/user-profile/search-user?s=testname&l=10`**
 
-{
- "searchterm":"test"
-}
+- `s` put the search term string in this
+- `l` put the id of the last result for more results
 
-```
-
-- **It returns the 10 results at a time from the search and a last_seen_id (id of the last search result).**
+- **It returns the 10 results at a time from the search and a `l` (id of the last search result).**
 
 ### **Like This Data**
 
 ```
-searchResults:[
+results:[
     {
     "username": "test",
     "user_id": "a729a41b-f439-48d5-925e-67ba6fc7fe20",
@@ -83,28 +80,17 @@ searchResults:[
     "user_id": "a729a41b-f439-48d5-925e-67ba6fc7fe20",
     "id": 3
     }
-]
+],
+    l:10
 ```
 
 - For the first time it will the first matched 10 results
 
 - For the next 10 results , Pagination is used
 
-- For next results put the **last_seen_id** in the request body.
+- For next results put the `l`**(id of last result)** in the query.
 
-- **last_seen_id** is automatically given by the backend when there are more than 10 results.Other than that no need to use it if results are less than 10.
-
-**Data To Pass Into Request For Pagination
-Ex :-**
-
-```
-
-{
- "searchterm":"test",
- "last_seen_id":3
-}
-
-```
+- `l`**(id of last result)** is automatically given by the backend when there are more than 10 results.Other than that no need to use it if results are less than 10.
 
 ## User Edit Profile Route(PUT Request) (Proctected Route)
 
@@ -186,23 +172,33 @@ Ex :-**
 }
 ```
 
-## User Home Timeline Route(DELETE Request) (Proctected Route)
+## User Home Timeline Route(GET Request) (Proctected Route)
 
-> **`http://localhost:4000/api/v1/userProfile/home`**
+> **`http://localhost:4000/api/v1/user-profile/home`**
 
 - For the first time it will the first matched 10 results whom user **follow**.
 
 - For the next 10 results , Pagination is used.
 
-- For next results put the **last_seen_id** in the request body.
+- For next results put the `l`**(id of last result)** in the query.
 
-- **last_seen_id** is automatically given by the backend when there are more than 10 results.Other than that no need to use it if results are less than 10.
+- `l`**(id of last result)** is automatically given by the backend when there are more than 10 results.Other than that no need to use it if results are less than 10.
+
+### **Ex: Data into Query like this when pagination is required**
+
+**`http://localhost:4000/api/v1/user-profile/home?l=10`**
+
+## Wish A User Route(POST Request) (Proctected Route)
+
+> **`http://localhost:4000/api/v1/user-profile/wish`**
+
+- user id to wish is passed to userToUnWish in the request body.
 
 ### **Like This Data**
 
 ```
 
 {
-"last_seen_id": 2,
+"userToWish": "a729a41b-f439-48d5-925e-67ba6fc7fe20",
 }
 ```
