@@ -70,7 +70,7 @@ app.use('/api/v1/signup', signup);
 
 // app.use("/api/v1/resetPassword", resetPassword);
 
-app.use('/api/v1/userProfile', authVerification, userProfile);
+app.use('/api/v1/user-profile', authVerification, userProfile);
 
 app.use(async (req, res, next) => {
   const Error = createError.NotFound();

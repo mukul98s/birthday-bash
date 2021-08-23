@@ -22,23 +22,29 @@ const {
   homeTimeline,
 } = require('../../controllers/User_Controllers/home_timeline.controller');
 
+const {
+  wishUser,
+} = require('../../controllers/User_Controllers/wish.controller');
+
 // const {
 //   uploadProfilePic,
 // } = require("../../controllers/User_Controllers/upload_profile_pic.controller");
 
-Route.get('/showUserProfile', showUserProfile);
+Route.get('/show-user-profile', showUserProfile);
 
-Route.get('/showUserProfile/:id', showSpecificUserProfile);
+Route.get('/show-user-profile/:id', showSpecificUserProfile);
 
-Route.get('/searchUser', searchUser);
+Route.get('/search-user', searchUser);
 
-Route.put('/editProfile', editProfile);
+Route.put('/edit-profile', editProfile);
 
 Route.post('/follow', followUser);
 
 Route.delete('/unfollow', unFollowUser);
 
 Route.get('/home', homeTimeline);
+
+Route.post('/wish', wishUser);
 
 // Route.post("/uploadProfilePic", uploadProfilePic);
 
