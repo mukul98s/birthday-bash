@@ -3,22 +3,19 @@ const db = require('../../db/index');
 module.exports = {
   searchUser: async (req, res, next) => {
     try {
-      const { search_term, last_seen_id } = req.body;
+      const { s, l } = req.query;
+      const lowerCaseSearchTerm = s.toLowerCase();
 
-      const lowerCaseSearchTerm = search_term.toLowerCase();
-
-      if (last_seen_id) {
+      if (l) {
         const moreResults = await db.query(
           'SELECT user_id, username, id FROM users WHERE username LIKE $1 AND id > $2 ORDER BY id LIMIT 10',
-          ['%' + lowerCaseSearchTerm + '%', last_seen_id]
+          ['%' + lowerCaseSearchTerm + '%', l]
         );
 
         if (moreResults.rowCount > 0) {
           if (moreResults.rowCount == 10) {
             const last_id = moreResults.rows[moreResults.rowCount - 1].id;
-            res.json(moreResults.rows, {
-              last_seen_id: last_id,
-            });
+            res.json({ results: moreResults.rows, l: last_id });
           } else {
             res.json(moreResults.rows);
           }
@@ -34,9 +31,7 @@ module.exports = {
         if (searchResult.rowCount > 0) {
           if (searchResult.rowCount == 10) {
             const last_id = searchResult.rows[searchResult.rowCount - 1].id;
-            res.json(searchResult.rows, {
-              last_seen_id: last_id,
-            });
+            res.json({ resutls: searchResult.rows, l: last_id });
           } else {
             res.json(searchResult.rows);
           }
