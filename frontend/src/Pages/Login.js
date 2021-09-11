@@ -22,7 +22,7 @@ const Login = () => {
   //this will redirect from here after successful login
   useEffect(() => {
     if (auth.user) {
-      history.push("/home/feed");
+      history.push("/feed");
     }
   }, [auth.user, history]);
 

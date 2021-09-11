@@ -67,6 +67,24 @@ const Feed = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  article {
+    width: 60%;
+    margin: auto;
+  }
+
+  h2 {
+    font-weight: normal;
+    margin: 0rem auto 2rem;
+    text-align: center;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+`;
 
 export default Feed;
