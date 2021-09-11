@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BiHomeCircle } from "react-icons/bi";
 import { BsSearch, BsPlusSquare } from "react-icons/bs";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -8,27 +8,26 @@ import { CgProfile } from "react-icons/cg";
 import Badge from "@material-ui/core/Badge";
 
 const BottomNavbar = () => {
-  const { url } = useRouteMatch();
   return (
     <Wrapper>
       <nav>
         <div>
-          <Link to={`${url}/feed`}>
+          <Link to="/feed">
             <BiHomeCircle />
           </Link>
         </div>
         <div>
-          <Link to={`${url}/search`}>
+          <Link to="/search">
             <BsSearch />
           </Link>
         </div>
         <div>
-          <Link to={`${url}/addUser`}>
+          <Link to="/add-birthday">
             <BsPlusSquare />
           </Link>
         </div>
         <div>
-          <Link to={`${url}/notification`}>
+          <Link to="/notification">
             <Badge
               anchorOrigin={{
                 vertical: "top",
@@ -43,7 +42,7 @@ const BottomNavbar = () => {
           </Link>
         </div>
         <div>
-          <Link to={`${url}/profile`}>
+          <Link to="/profile">
             <CgProfile />
           </Link>
         </div>
