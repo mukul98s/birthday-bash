@@ -38,6 +38,12 @@ CREATE TABLE edits(
     created_at TIMESTAMPTZ NOT NULL
 );
 
+
+CREATE TABLE wishes(
+    source_user_id UUID REFERENCES users(user_id),
+    dest_user_id UUID REFERENCES users(user_id)
+);
+
 -- For Seaching Feature 
 Step 7.>
 CREATE INDEX CONCURRENTLY idx_user ON users(id,username,dob); 
@@ -45,6 +51,8 @@ CREATE INDEX CONCURRENTLY idx_user ON users(id,username,dob);
 CREATE INDEX CONCURRENTLY idx_followers ON followers(id,source_user_id,dest_user_id);
 
 CREATE INDEX CONCURRENTLY idx_edits ON edits(user_id);
+
+CREATE INDEX CONCURRENTLY idx_wishes ON wishes(source_user_id,dest_user_id);
 
 Step 8.>
 CREATE EXTENSION pg_trgm;
