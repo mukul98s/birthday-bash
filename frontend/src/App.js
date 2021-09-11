@@ -1,11 +1,19 @@
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
-import { Home, Login, Error, SignUp, UserHome, UserProfile } from "./Pages/";
+import { Home, Login, Error, SignUp } from "./Pages/";
 import { ProvideAuth } from "./State/LoginState";
 import PrivateRoute from "./utils/PrivateRoute";
 import { SignUpProvider } from "./State/SignupState";
 import { Suspense } from "react";
 import Loader from "./Components/Loader";
+import {
+  Feed,
+  UserProfile,
+  Search,
+  Notifications,
+  AddBirthday,
+} from "./Components/";
+import AppShell from "./AppShell";
 
 function App() {
   return (
@@ -22,8 +30,31 @@ function App() {
             <SignUp />
           </SignUpProvider>
         </Route>
-        <PrivateRoute path="/home" component={UserHome} />
-        <PrivateRoute path="/profile" component={UserProfile} />
+        <PrivateRoute path="/feed">
+          <AppShell>
+            <Feed />
+          </AppShell>
+        </PrivateRoute>
+        <PrivateRoute path="/search">
+          <AppShell>
+            <Search />
+          </AppShell>
+        </PrivateRoute>
+        <PrivateRoute path="/add-birthday">
+          <AppShell>
+            <AddBirthday />
+          </AppShell>
+        </PrivateRoute>
+        <PrivateRoute path="/notification">
+          <AppShell>
+            <Notifications />
+          </AppShell>
+        </PrivateRoute>
+        <PrivateRoute path="/profile">
+          <AppShell>
+            <UserProfile />
+          </AppShell>
+        </PrivateRoute>
         <Route path="*" component={Error} />
       </Switch>
     </Suspense>
